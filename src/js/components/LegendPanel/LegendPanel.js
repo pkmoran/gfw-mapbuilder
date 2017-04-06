@@ -44,7 +44,6 @@ export default class LegendPanel extends Component {
     let {layerIds = []} = map;
     let legendInfos = [];
     let ids = [];
-
     // Loop through layer ids and if those layers exist, add them to the legend
     // Add any layers we want to exclude from the legend to ignores, including basemapLayerIds
     // If a layer has a legendLayerId configured in the resources.js, you will probably want to add it here to prevent
@@ -67,8 +66,8 @@ export default class LegendPanel extends Component {
       layerIds = layerIds.concat(graphicsLayerIds);
     }
 
-    //- Get layers from the webmap, we could comment out this block but may miss any layers added from
-    //- the webmap as graphics or feature layers since those won't be in layerIds
+    // //- Get layers from the webmap, we could comment out this block but may miss any layers added from
+    // //- the webmap as graphics or feature layers since those won't be in layerIds
     // legendInfos = webmapInfo.operationalLayers.filter((item) => {
     //   //- Add them to ignores so they do not show up twice
     //   if (item.layerObject) { ignores.push(item.id); }
@@ -76,7 +75,7 @@ export default class LegendPanel extends Component {
     // }).map((layer) => {
     //   return {
     //     layer: layer.layerObject,
-    //     title: '' // layer.layerObject.name
+    //     title: 'lucas' // layer.layerObject.name
     //   };
     // });
 
@@ -85,12 +84,20 @@ export default class LegendPanel extends Component {
       ids = layerIds.filter(id => ignores.indexOf(id) === -1);
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
+        if(layer.renderer) {
+          if(!Boolean(layer.renderer.infos))
+          {
+            if(layer.renderer.symbol)
+            {
+              layer.renderer.label = layer.name;
+            }
+          }       
+        }
         if (layer) {
           legendInfos.push({ layer, title: '' });
         }
       });
     }
-
     return legendInfos;
   }
 

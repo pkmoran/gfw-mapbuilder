@@ -11,7 +11,6 @@ export default class Modal extends Component {
 
   renderFromMetadataAPI (info) {
     const {language} = this.context;
-    console.log(info);
     return (
       <div className='layer-modal-content'>
         <div className='source-header'>
@@ -62,7 +61,6 @@ export default class Modal extends Component {
 
   renderFromMapService (info) {
     const {language} = this.context;
-    console.log(info);
     return (
       <div className='layer-modal-content'>
         <div className='source-header'>
