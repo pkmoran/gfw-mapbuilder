@@ -160,13 +160,14 @@ const rules = {
 
 const computeHistogram = (url, content, success, fail) => {
   //- Format the content properly
-  if (content.geometry) { content.geometry = JSON.stringify(content.geometry); }
+  if (content.geometry && typeof content.geometry !== 'string') { 
+    content.geometry = JSON.stringify(content.geometry); 
+  }
   if (content.renderingRule) { content.renderingRule = JSON.stringify(content.renderingRule); }
   if (content.mosaicRule) { content.mosaicRule = JSON.stringify(content.mosaicRule); }
   //- Set some defaults if they are not set
   content.geometryType = content.geometryType || 'esriGeometryPolygon';
   content.f = content.f || 'json';
-
   if (success && fail) {
     esriRequest({
       url: `${url}/computeHistograms`,
@@ -354,7 +355,6 @@ export default {
         promise.resolve(error);
       }
     };
-
     computeHistogram(imageService, content, success, failure);
     return promise;
   },
