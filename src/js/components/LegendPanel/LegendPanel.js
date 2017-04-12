@@ -9,7 +9,6 @@ const closeSymbolCode = 9660,
 
 let legend;
 
-
 export default class LegendPanel extends Component {
 
   static contextTypes = {
@@ -84,17 +83,12 @@ export default class LegendPanel extends Component {
       ids = layerIds.filter(id => ignores.indexOf(id) === -1);
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
-        if(layer.renderer) {
-          if(!Boolean(layer.renderer.infos))
-          {
-            if(layer.renderer.symbol)
-            {
-              layer.renderer.label = layer.name;
-            }
-          }       
-        }
         if (layer) {
-          legendInfos.push({ layer, title: '' });
+          if(layer.arcgisProps == undefined) {
+            legendInfos.push({ layer, title: '' }); 
+          } else {
+            legendInfos.push({ layer, title: layer.arcgisProps.title });
+          }
         }
       });
     }

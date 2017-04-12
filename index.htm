@@ -1,0 +1,952 @@
+HTTP/1.1 200 OK
+x-amz-id-2: KZLuoRcupbtmgfcoBSrSyf9Ux4DVWnjj0mhb0p8qqj5NeupRAEnoea5vLZ+HXzRRK3EyV5d4NyE=
+x-amz-request-id: 69E78841265055C0
+Date: Mon, 10 Apr 2017 18:38:23 GMT
+Last-Modified: Tue, 21 Feb 2017 21:35:43 GMT
+ETag: "91bac7a8328463e41d6c6bbd30b7e0fa"
+Accept-Ranges: bytes
+Content-Type: text/html
+Content-Length: 41688
+Server: AmazonS3
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+	<!-- Basic Page Needs
+  ================================================== -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="UTF-8">
+	<title>eMammal - Data Review Tool</title>
+	<meta name="description" content="eMammal - Expert Review Tool">
+	<meta name="author" content="Smithsonian">
+	<META name="keywords" content="eMammal, ERT">
+
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<!-- CSS
+  	================================================== -->
+
+	<link rel="stylesheet" href="https://js.arcgis.com/3.12/dijit/themes/tundra/tundra.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.12/esri/css/esri.css">
+
+	<link rel="stylesheet" href="app/stylesheets/base.css">
+	<link rel="stylesheet" href="app/stylesheets/skeleton.css">
+	<link rel="stylesheet" href="app/stylesheets/layout.css">
+	<link rel="stylesheet" href="app/stylesheets/main.css">
+	<link rel="stylesheet" href="app/stylesheets/design.css">
+
+
+
+	<!-- Favicons
+	================================================== -->
+
+	<!-- JS -->
+	<script>
+	// console.log("test");
+    var dojoConfig = {
+    	//baseUrl: "/app",
+    	pauseApp:false,
+    	parseOnLoad: false,
+    	isDebug: false,
+    	async: true,
+    	packages: [
+        {name: "app", location: location.pathname.replace(/\/[^/]+$/, "") + "/app/js"}
+    	],
+    	aliases: [
+    		//Util
+    		["uifactory", "app/util/UIFactory"],
+    		["hashcontroller", "app/util/HashController"],
+    		["keyscontroller", "app/util/KeysController"],
+
+		    //Main
+		    ["mainconfig", "app/main/MainConfig"],
+		    ["mainui", "app/main/MainUI"],
+		    ["mainevents", "app/main/MainEvents"],
+		    ["maincontroller", "app/main/MainController"],
+		    ["mainmodel", "app/main/MainModel"],
+
+		    //Map
+		    ["mapconfig", "app/map/MapConfig"],
+		    ["mapui", "app/map/MapUI"],
+		    ["mapevents", "app/map/MapEvents"],
+		    ["mapcontroller", "app/map/MapController"],
+		    ["mapmodel", "app/map/MapModel"],
+
+		    //Dashboard
+		    ["dashboardconfig", "app/dashboard/DashboardConfig"],
+		    ["dashboardui", "app/dashboard/DashboardUI"],
+		    ["dashboardevents", "app/dashboard/DashboardEvents"],
+		    ["dashboardcontroller", "app/dashboard/DashboardController"],
+		    ["dashboardmodel", "app/dashboard/DashboardModel"],
+
+		    //Species
+		    ["speciesconfig", "app/species/SpeciesConfig"],
+		    ["speciesui", "app/species/SpeciesUI"],
+		    ["speciesevents", "app/species/SpeciesEvents"],
+		    ["speciescontroller", "app/species/SpeciesController"],
+		    ["speciesmodel", "app/species/SpeciesModel"],
+
+		    //Deployment
+		    ["deploymentconfig", "app/deployment/DeploymentConfig"],
+		    ["deploymentui", "app/deployment/DeploymentUI"],
+		    ["deploymentevents", "app/deployment/DeploymentEvents"],
+		    ["deploymentcontroller", "app/deployment/DeploymentController"],
+		    ["deploymentmodel", "app/deployment/DeploymentModel"],
+
+		    //sequenceDeployment
+		    ["sequencedeploymentconfig", "app/sequenceDeployment/sequenceDeploymentConfig"],
+		    ["sequencedeploymentui", "app/sequenceDeployment/sequenceDeploymentUI"],
+		    ["sequencedeploymentevents", "app/sequenceDeployment/sequenceDeploymentEvents"],
+		    ["sequencedeploymentcontroller", "app/sequenceDeployment/sequenceDeploymentController"],
+		    ["sequencedeploymentmodel", "app/sequenceDeployment/sequenceDeploymentModel"],
+
+		    //dialogs
+		    ["dialogmodel", "app/dialog/DialogModel"],
+
+		    //Other Libraries
+		    ["ko", "app/lib/knockout"],
+
+		    //Dojo Aliases
+		    ["cookie","dojo/cookie"],
+		    ["win","dojo/_base/window"],
+		    ["keys","dojo/keys"],
+			["xparser", "dojo/parser"],
+			["xmlparser", "dojox/xml/parser"],
+			["mparser", "dojox/mobile/parser"],
+			["declare", "dojo/_base/declare"],
+			["color", "dojo/_base/Color"],
+		    ["array", "dojo/_base/array"],
+		    ["dom", "dojo/dom"],
+		    ["registry", "dijit/registry"],
+		    ["construct", "dojo/dom-construct"],
+		    ["class", "dojo/dom-class"],
+		    ["style", "dojo/dom-style"],
+		    ["attr", "dojo/dom-attr"],
+		    ["checkbox", "dijit/form/CheckBox"],
+		    ["button","dijit/form/Button"],
+			["textbox", "dijit/form/TextBox"],
+			["togglebutton", "dijit/form/ToggleButton"],
+			["radio", "dijit/form/RadioButton"],
+			["combobox", "dijit/form/ComboBox"],
+			["filteringselect","dijit/form/FilteringSelect"],
+			["memory", "dojo/store/Memory"],
+			["hash", "dojo/hash"],
+			["ioquery", "dojo/io-query"],
+			["query", "dojo/query"],
+			["string","dojo/string"],
+			["number","dojo/number"],
+			["json","dojo/json"],
+		    ["topic", "dojo/topic"],
+		    ["connect", "dojo/_base/connect"],
+		    ["on", "dojo/on"],
+		    ["aspect", "dojo/aspect"],
+		    ["request", "dojo/request"],
+		    ["script", "dojo/request/script"],
+		    ["all",  "dojo/promise/all"],
+		    ["deferred",  "dojo/Deferred"],
+		    ["lang","dojo/_base/lang"]
+
+
+		]
+    }
+    </script>
+
+	<script type="text/javascript" src="https://js.arcgis.com/3.12/init.js"></script>
+
+	<script type="text/javascript">
+		require(["app/main/main"],function(Main){
+			var main = new Main();
+		})
+
+		function goToDeployment(deployment_id){
+			require(["mapmodel"],function(MapModel){
+				var mapmodel = MapModel.getVM();
+				mapmodel.onClickDeployment(null,null,deployment_id);
+
+			})
+		}
+
+	</script>
+
+
+
+</head>
+<body class="tundra app">
+<!-- Primary Page Layout
+	================================================== -->
+	<!--New Identification dialog-->
+<div id="appBlocker" class="dijitHidden"></div>
+<span id="dialogsContainer">
+
+   <!--statusReason-->
+   <div data-dojo-type="dijit/Dialog" id="statusReason" data-dojo-id="statusReason" title="Deployment Rejected">
+      <!-- <div class="dijitDialogPaneContentArea statusReasonContent">
+      	<div data-bind="html:rejectedDeploymentGraphic().attributes.notes">
+
+      	</div>
+      </div> -->
+       <div class="dijitDialogPaneActionBar buttonContainer">
+        <button data-dojo-type="dijit/form/Button" class="appButton" type="button" onclick="statusReason.hide()">Ok</button>
+       </div>
+   </div>
+
+   <!--inputNotes-->
+   <div data-dojo-type="dijit/Dialog" id="inputNotes" data-dojo-id="inputNotes" title="Reason for Rejection">
+      <div class="dijitDialogPaneContentArea" id="newIdentificationContent">
+      	<textarea id="rejectionReasonText" name="rejectionReasonText" data-dojo-type="dijit/form/SimpleTextarea" rows="12" cols="35" style="width:auto;">
+
+      	</textarea>
+
+      </div>
+       <div class="dijitDialogPaneActionBar buttonContainer">
+        <button data-dojo-type="dijit/form/Button" class="appButton" type="button" id="saveRejection">Save</button>
+       </div>
+   </div>
+
+   <!--inputNotes-->
+   <div data-dojo-type="dijit/Dialog" id="errorMsg" data-dojo-id="errorMsg" title="Error">
+      <div class="dijitDialogPaneContentArea" id="newIdentificationContent">
+
+      	An error occured in the application
+
+      </div>
+       <div class="dijitDialogPaneActionBar buttonContainer">
+
+        <button data-dojo-type="dijit/form/Button" class="appButton" type="button" onclick="errorMsg.hide()">Ok</button>
+
+       </div>
+   </div>
+
+  </span>
+
+<div data-dojo-type="dijit/layout/BorderContainer"  class="borderContainer" id="mainBorderContainer" data-dojo-props="gutters:false,design:'headline'"><!-- BorderContainer -->
+
+		<div data-dojo-type="dijit/layout/ContentPane"  id="headerView" data-dojo-props="region:'top'" class="appBackground"><!-- header -->
+
+			<div data-bind="visible:invalidLogin()" class="warn">Username / Password invalid</div>
+			<div id="loginOverlay" class="dijitHidden">Signing in... Please wait</div>
+			<span data-bind="visible:(currentView()!='login')">
+			<div class="loginHeader">
+		 		<div class="logo"></div>
+		 		<h3>Expert Review Tool</h3>
+		 	</div>
+			<div id="projectsFilterContainer">
+				<div id="userprofile">
+				<div data-bind="visible:username().length>0" class="appLabel"><span data-bind="text:username"></span></div>
+				<div id="logoutLink" class="row backLink"></div>
+				</div>
+
+				<div data-bind="visible:(currentView()=='map' || currentView()=='dashboard')">
+					<span>Project : </span>
+					<div id="projectsFilter"></div>
+					&nbsp;&nbsp;
+					<span data-bind="visible:(currentView()!='dashboard')">
+					<span>Subproject : </span>
+					<div id="subProjectsFilter"></div>
+				   </span>
+				</div>
+
+				<div data-bind="visible:(currentView()=='deployment' || currentView()=='sequenceDeployment' || currentView()=='species') && totalRecords()>0" class="appLabel">
+					<span data-bind="text:totalApproved"></span> of <span data-bind="text:totalRecords"></span> Approved
+				</div>
+				<div id="showUnapproved" class="appLink" data-bind="visible:(currentView()=='deployment' || currentView()=='species')">
+
+		<span class="buttonContainer">
+				<button data-dojo-type="dijit/form/ToggleButton" id="filterProjects" class="appButton" data-dojo-props="iconClass:'dijitCheckBoxIcon', checked: false">
+                   Show only unapproved
+               </button>
+           </span>
+
+
+				</div>
+			</div>
+			</span>
+
+
+
+		</div>
+
+		<div data-dojo-type="dijit/layout/StackContainer" id="stackContainer"  data-dojo-props="region:'center',id:'mainStackContainer'">
+
+					<div data-dojo-type="dijit/layout/ContentPane" id="loginView" class="appBackground">
+
+					 	<div class="loginHeader">
+					 		<div class="logo"></div>
+					 		<h3>Expert Review Tool</h3>
+					 	</div>
+						<div id="loginPanelContainer">
+							<div id="loginPanel">
+
+									<div id="usernameContainer">
+										<span id="username"/></span>
+									</div>
+
+									<div id="passwordContainer">
+										<span id="password"/></span>
+									</div>
+
+	   							    <div id="linkForgotPwd"></div>
+	   							    <div class="loginSpacer">&nbsp;</div>
+
+									<span id="signedInContainer">
+										<span id="signedInCheck"/></span>
+									</span>
+
+									<!-- <input id="signedInCB" /> <label for="signedInCB">Stay signed in</label> -->
+
+
+
+							</div>
+							<div class="buttonContainer">
+								<span id="loginButton"></span>
+							</div>
+						</div>
+					</div><!-- loginView -->
+
+
+					<div data-dojo-type="dijit/layout/ContentPane" id="dashboardView">
+
+								<div id="summaryGrid" class="gridPanel">
+									<div id="progressChart"  class="five columns appPanel standardBox">
+										    <div class="sectionTitle dashboard">Stats Summary</div>
+										    <div class="showPointer" id="refreshIcon" title="Refresh dashboard">
+										    </div>
+											<!-- div>Deployment Progress</div> -->
+                      <div class="flex-center bold">
+                        <div class="tableCol">
+                          <div class="tableTitle">Deployments</div>
+                          <div data-bind="html:projectStats_summary().deployment_count" class="tableItem">-</div>
+                        </div>
+                        <div class="tableCol">
+                          <div class="tableTitle">Sequences</div>
+                          <div data-bind="html:projectStats_summary().sequence_count" class="tableItem">-</div>
+                        </div>
+                        <div class="tableCol">
+                          <div class="tableTitle">Photos</div>
+                          <div data-bind="html:projectStats_summary().image_count" class="tableItem">-</div>
+                        </div>
+                      </div>
+											<!-- <div id="reviewedStatusChart" class="four columns">
+												<span class="chartItem" title="Rejected" data-bind="attr:{style:'width:'+rejectedPercent()+'%'}" id="reviewedChartRejected">&nbsp;</span>
+												<span class="chartItem" title="Approved" data-bind="attr:{style:'width:'+approvedPercent()+'%'}" id="reviewedChartApproved">&nbsp;</span>
+												<span class="chartItem" title="Not Reviewed" data-bind="attr:{style:'width:'+notreviewedPercent()+'%'}" id="reviewedChartNotReviewed">&nbsp;</span>
+											</div> -->
+											<br>
+											<div class="buttonContainer">
+											<div id="reviewDeploymentsButton"></div>
+											</div>
+									</div><!--progressChart end-->
+
+										<div id="summaryGridContainer" class="flex-center">
+											<div class="tableCol">
+												<div class="tableHeader tableSpacer tableTitle">&nbsp;</div>
+												<div class="tableHeader tableItem">Deployments</div>
+												<div class="tableHeader tableItem">Sequences</div>
+												<!-- <div class="tableHeader tableItem">Photos</div> -->
+											</div>
+
+											<div class="tableCol">
+												<div class="tableHeader tableTitle">Processing</div>
+												<div data-bind="html:projectStats_deployments().partially_uploaded" class="tableItem">-</div>
+												<div data-bind="html:projectStats_sequences().partially_uploaded" class="tableItem">-</div>
+												<!-- <div data-bind="html:projectStats_photos().partially_uploaded" class="tableItem">-</div> -->
+											</div>
+
+                      <div class="tableCol">
+                        <div class="tableHeader tableTitle">Need Review</div>
+                        <div data-bind="html:projectStats_deployments().needs_review" class="tableItem">-</div>
+                        <div data-bind="html:projectStats_sequences().needs_review" class="tableItem">-</div>
+                        <!-- <div data-bind="html:projectStats_photos().needs_review"  class="tableItem">-</div> -->
+                      </div>
+
+											<div class="tableCol">
+												<div class="tableHeader tableTitle">Approved</div>
+												<div data-bind="html:projectStats_deployments().approved" class="tableItem">-</div>
+												<div data-bind="html:projectStats_sequences().approved" class="tableItem">-</div>
+												<!-- <div data-bind="html:projectStats_photos().approved" class="tableItem">-</div> -->
+											</div>
+
+											<div class="tableCol">
+												<div class="tableHeader tableTitle">Rejected</div>
+												<div data-bind="html:projectStats_deployments().rejected" class="tableItem">-</div>
+												<div data-bind="html:projectStats_sequences().rejected" class="tableItem">-</div>
+												<!-- <div data-bind="html:projectStats_photos().rejected" class="tableItem">-</div> -->
+											</div>
+										</div>
+
+									</div><!--summaryGrid end-->
+
+
+
+
+								<div id="summaryContainer"  >
+
+
+
+
+
+
+
+									<div id="speciesList"  class="six columns appPanel row gridPanel">
+										<div class="speciesSorters">
+											<div class="tableCol" id="speciesNameSort"></div>
+											<div class="tableCol" id="speciesIndividualSort"></div>
+											<div class="tableCol" id="speciesSequenceSort"></div>
+										</div>
+										<div id="speciesListContainer">
+											<div data-bind="visible:!speciesLoaded()" class="loadingSpeciesMsg">
+												Loading species list..
+											</div>
+											<div class="tableCol">
+												<!-- <div class="tableHeader tableTitle appLinkSort">Species</div> -->
+
+												<span data-bind="foreach:species">
+												<div class="tableItemSpeciesName appLink" data-bind="text:name,event:{click:$parent.onClickSpecies}"></div>
+												</span>
+											</div>
+
+											<div class="tableCol">
+												<!-- <div class="tableHeader tableTitle appLinkSort"># of Individuals</div> -->
+
+												<span data-bind="foreach:species">
+												<div class="tableItem" data-bind="text:count">0</div>
+												</span>
+											</div>
+
+											<div class="tableCol">
+												<!-- <div class="tableHeader tableTitle appLinkSort"># of Sequences</div> -->
+
+												<span data-bind="foreach:species">
+												<div class="tableItem" data-bind="text:sequence_count">0</div>
+												</span>
+											</div>
+										</div>
+
+									</div>
+
+								<div id="bestOfBestPanel" class="four columns appPanel row alpha omega trayBox" >
+										<div class="sectionTitle dashboard">Best of the Best</div>
+										<!-- <div id="bestOfBestWrapper">									 -->
+											<div data-bind="foreach:favoritephotos" id="bestOfBestContainer" class="dijitHidden initialHide">
+
+												<div class="favImage" data-bind="event:{click:$parent.onClickFavoritePhoto}">
+													<span class="appLink"><img title="Click to view high resolution" data-bind="attr:{src:$parent.photoServer() + photo_id + '_m.jpg'}"/></span>
+													<span class="imageMeta"><span data-bind="text:title"></span></span>
+												</div>
+
+											</div>
+											<!-- <div class="initialShow">Loading favorite photos..</div> -->
+                      <div id="spinnerContainer" class="dijitHidden">
+                        <div class="loader-gif"></div>
+                      </div>
+										<!-- </div> -->
+										<div data-bind="visible:favoritephotos().length==0"  class="dijitHidden initialHide">
+											No photos tagged as Favorite!
+										</div>
+
+
+								</div><!-- bestOfBestPanel -->
+
+
+								</div><!-- summaryContainer end (center region)-->
+
+
+
+
+
+
+
+
+					</div><!-- dashboardView End-->
+
+					<div data-dojo-type="dijit/layout/ContentPane" id="mapView" >
+
+							<div data-dojo-type="dijit/layout/BorderContainer"  class="borderContainer"  id='mapBorderContainer'
+							data-dojo-props="gutters:true,design:'headline'">
+
+
+								<div data-dojo-type="dijit/layout/ContentPane" id="mapContainer" data-dojo-props="region:'center'">
+									<div id="map">
+										<div id="HomeButton"></div>
+									</div>
+									<div id="basemapContainer">
+							          <div data-dojo-type="dijit/TitlePane"
+							               data-dojo-props="title:'Basemap', closable:false,  open:false">
+							            <div data-dojo-type="dijit/layout/ContentPane" id="basemapContentPane">
+							            <div id="basemapGallery" ></div>
+							        	</div>
+							          </div>
+							        </div>
+
+								</div><!-- map -->
+
+								<div data-dojo-type="dijit/layout/ContentPane" id="deploymentsPanel" data-dojo-props="region:'right'">
+									<div id="deploymentListOverlay">Loading deployments on map..</div>
+
+									<div id="dashboardLink" class="row backLink"></div>
+
+									<div class="sectionTitle">Deployment List</div>
+
+									<div id="deploymentsFilterContainer">
+										<div id="deploymentsSearch"></div>
+									</div>
+
+									<div id="mapFilterContainer" class="row">
+										<div id="toggleCompleted"></div>
+										<div id="toggleRejected"></div>
+										<br>
+										<div id="toggleNeedsReview"></div>
+										<div id="togglePartiallyUploaded"></div>
+									</div>
+
+
+
+									<div id="deploymentListContainer" data-bind="foreach:deployments">
+											<div data-bind="if:visible==true">
+
+												<div data-bind="css:{symbolCompleted:attributes.review_status=='completed'},visible:attributes.review_status=='completed'"></div>
+												<div data-bind="css:{symbolUploaded:attributes.review_status=='partially_uploaded'},visible:attributes.review_status=='partially_uploaded'"></div>
+												<div data-bind="css:{symbolReview:attributes.review_status=='needs_review'},visible:attributes.review_status=='needs_review'"></div>
+												<div data-bind="css:{symbolRejected:attributes.review_status=='rejected'},visible:attributes.review_status=='rejected'"></div>
+												<span data-bind="css:{appLink:attributes.review_status!='completed'}">
+												<div data-bind="html:attributes.title,event:{click:$parent.onClickDeployment,mouseover:$parent.onMouseOverDeployment,mouseout:$parent.onMouseOutDeployment}" class="deploymentGraphic"></div>
+												</span>
+											</div>
+									</div>
+
+									<div id="deploymentListButtonsContainer">
+										<div class="deploymentListButtons">
+											Showing <span data-bind="text:deployments().length">0</span> Deployments
+											<span data-bind="visible:deploymentsLoading()">..loading more</span>
+										</div>
+
+									</div>
+								</div><!-- leftPanel -->
+
+							</div>
+
+					</div><!-- mapView End-->
+
+					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-id="speciesView" id="speciesView">
+						<div id="dashboardLink2" class="row backLink"></div>
+
+						<div class="sectionTitle" data-bind="html:currentSpecies().name"></div>
+
+						<div id="speciesGrid" class="gridContainer" data-bind="foreach:sequences">
+
+							<div class="gridThumbItem" data-bind="attr:{id:'speciesView_'+first_photo.photo_id}">
+								<div data-bind="visible:review_status=='approved'" class="photoSelectedChecked medium">&#10003;</div>
+								<div class="mediumImage appLink" data-bind="click:$root.clickImage,css:{selectedImage:isActive,nonLink:deployment_review_status == 'completed'}">
+									<img data-bind="attr:{title:(deployment_review_status == 'completed') ? 'Deployment Completed' : 'Click to Approve',src:$parent.photoServer() + first_photo.photo_id + '_m.jpg'}" max-width="240px" height="100%"/>
+									<div class="activeImageIconSequence" data-bind="visible:isActive">▲</div>
+								</div>
+
+								<div class="imageMeta">
+									<span data-bind="text:$index()+1"></span>/<span data-bind="text:$parent.totalRecords"></span>
+									<span class="sequenceComplete" data-bind="visible:deployment_review_status == 'completed'">Completed</span>
+								</div>
+
+								<div class="appLink imagePreview" data-bind="visible:deployment_review_status != 'completed'">
+									<span data-bind="click:$root.previewSequence">Review</span>
+								</div>
+
+								<input type="checkbox" data-bind="visible:deployment_review_status != 'completed',click:$root.checkSequence,checked:$root.selectedSequences,attr:{value:sequence_id,id:'checkbox_'+sequence_id}"></input>
+								&nbsp;&nbsp;
+								<!-- <span class="appLabel">Sequence #:&nbsp;</span> -->
+								<!-- <span class="appLabel" data-bind="text:sequence_num"></span> -->
+								<div class="sequenceMetaData">
+
+								<div class="appText">
+									<span data-bind="text:deployment_title"></span>, <span data-bind="text:deployment_username"></span>
+								</div>
+
+								<div class="appText" data-bind="text:begin_date_time"></div>
+								<div class="appText" data-bind="foreach:identifications">
+										<span data-bind="text:count"></span>&nbsp;<span data-bind="text:name"></span>&nbsp;
+								</div>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div id="speciesButtonsContainer" data-dojo-type="dijit/layout/ContentPane">
+
+							<div class="buttonContainer">
+
+								<!-- <span data-bind="visible:selectedSequences().length>0"> -->
+								<div id="previewSpeciesSequencesButton"></div>
+								<!-- </span> -->
+							</div>
+							<div class="msgContainer">
+											Showing <span data-bind="text:sequences().length">0</span> of <span data-bind="text:totalRecords()"></span> Sequences
+											<span data-bind="visible:currentSpeciesPage()<totalSpeciesPage()">Scroll down to load more..</span>
+							</div>
+						</div>
+
+					</div><!-- speciesView End-->
+
+					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-id="deploymentView" id="deploymentView">
+						<div id="deploymentLink1" class="row backLink"></div>
+
+            <div class="flex">
+              <div class="sectionTitle" data-bind="html:currentDeploymentTitle"></div>
+
+              <div id="filterSequenceBySpeciesContainer">
+                <span id="filterSequenceBySpecies"/></span>
+              </div>
+            </div>
+
+
+
+						<!-- <div id="deploymentSorterContainer">
+							<div id="sortBySequenceRadioContainer">
+								<div id="sortBySequenceRadio"></div>
+							</div>
+							<div class="spacer20">&nbsp;</div>
+							<div id="sortBySpeciesRadioContainer">
+								<div id="sortBySpeciesRadio"></div>
+							</div>
+						</div> -->
+
+						<div id="gridBlock" class="trayBox dijitHidden" style="padding:7px">
+						</div>
+            <div id="spinnerContainerDeployment" class="dijitHidden">
+              <div class="loader-gif"></div>
+            </div>
+						<div id="deploymentsGrid" class="gridContainer" >
+							<!-- <div><img src="http://emammalphoto_staging.s3.amazonaws.com/p1d100s1i1_q.jpg"/></div> -->
+							<span data-bind="foreach:sequences,visible:((sequences().length>0)">
+							<div class="gridThumbItem" data-bind="attr:{id:'deploymentView_'+first_photo.photo_id}">
+								<div data-bind="visible:review_status && review_status=='approved'" class="photoSelectedChecked medium">&#10003;</div>
+								<div class="mediumImage appLink" data-bind="click:$root.clickImage,css:{selectedImage:isActive}">
+									<img title="Click to Approve" max-width="240px" height="100%" data-bind="attr:{src:$parent.photoServer() + first_photo.photo_id + '_m.jpg'}"/>
+									<div class="activeImageIconSequence" data-bind="visible:isActive">▲</div>
+								</div>
+
+								<div class="imageMeta">
+									<span data-bind="text:$index()+1"></span>/<span data-bind="text:$parent.totalRecords"></span>
+
+								</div>
+
+								<div class="appLink imagePreview">
+									<span data-bind="click:$root.previewSequence">Review</span>
+								</div>
+
+								<input type="checkbox" data-bind="click:$root.checkSequence,checked:$root.selectedSequences,attr:{value:sequence_id,id:'checkbox_'+sequence_id}"></input>
+								&nbsp;&nbsp;
+								<!-- <span class="appLabel">Sequence #:&nbsp;</span> -->
+								<!-- <span class="appLabel" data-bind="text:sequence_num"></span> -->
+								<div class="sequenceMetaData">
+								<div class="appText" data-bind="text:begin_date_time"></div>
+								<div class="appText" data-bind="foreach:identifications">
+										<span data-bind="text:count"></span>&nbsp;<span data-bind="text:name"></span>&nbsp;
+								</div>
+								</div>
+
+							</div>
+							</span>
+							<div class="sequenceMsg" data-bind="visible:((sequences().length==0) && !showNoUnapproved())"> Sequences being processed. Please check back later. </div>
+							<div class="sequenceMsg"  data-bind="visible:showNoUnapproved()"> No unapproved sequences to show. </div>
+						</div>
+
+						<div id="deploymentButtonsContainer" data-dojo-type="dijit/layout/ContentPane">
+              <!-- <div id="batchLoadingContainer" class="dijitHidden">
+                <span>Update and Batch Approve Processes Loading</span>
+                <span class="small-loader-gif"></span>
+              </div> -->
+							<div class="buttonContainer">
+                <div>
+                  <div id="displayTimestampContainer">
+                    <span id="displayTimestamp"/></span>
+                    <!-- <span>Pick Desired Timestamp for First Sequence</span> -->
+                  </div>
+                </div>
+                <span data-bind="visible:selectedDeploymentGraphic().attributes.status!='data_partially_loaded'">
+                  <!-- <span id="approveDeploymentButton"></span> -->
+                  <span id="displayApproveSequencesButton"></span>
+                  <span id="previewSequencesButton"></span>
+                </span>
+                <span data-bind="visible:selectedDeploymentGraphic().attributes.status!='data_partially_loaded'">
+                  <div id="rejectDeploymentButton"></div>
+                </span>
+							</div>
+              <div id="seqLoadingContainer" class="dijitHidden">
+                <span>Loading More Sequences</span>
+                <span class="small-loader-gif"></span>
+              </div>
+							<div class="msgContainer">
+                <span>
+                  Showing <span data-bind="text:sequences().length">0</span> of <span data-bind="text:totalRecords()"></span> Sequences
+                  <span data-bind="visible:currentDeploymentPage()<totalDeploymentPage()">Scroll down to load more..</span>
+                </span>
+							</div>
+
+						</div>
+
+            <div id="timestampContainer" class="dijitHidden">
+              <div id="hideTimestampContainer" class="close-button">
+                <span id="hideTimestamp"/></span>
+              </div>
+              <div class="or-circle">
+                or
+              </div>
+              <h4 class="timestamp-message">Edit the date and time for one sequence</h4>
+              <div class="timestamp-message">and all timestamps will be corrected automatically</div>
+              <div class="timestamp-subcontainer">
+                <div class="timestamp-subcontainer__child">
+                  <div class="timestamp-message sequence">
+                    <span>First Sequence</span>
+                  </div>
+                  <label>Date</label>
+                  <input id="getDateBegin" type="date" name="datetime-begin" data-bind="value:dateBegin()">
+                  <label>Time</label>
+                  <input id="getTimeBegin" type="time" name="datetime-begin" data-bind="value:timeBegin()">
+                  <!-- <input id="getDateBegin" type="date" name="datetime-begin" data-bind="value:dateBegin(), event:{click:$root.toggleTimestamp}">
+                  <input id="getTimeBegin" type="time" name="datetime-begin" data-bind="value:timeBegin(), event:{click:$root.toggleTimestamp}"> -->
+                  <div class="buttonContainer">
+                    <div id="updateTimestampBeginContainer">
+                      <span id="updateTimestampBegin"/></span>
+                    </div>
+                  </div>
+                  <!-- <div class="buttonContainer" data-bind="visible:dateTimeInput() === 'first'">
+                    <div id="updateTimestampBeginContainer">
+                      <span id="updateTimestampBegin"/></span>
+                    </div>
+                  </div>
+                  <div class="transparent button-match" data-bind="visible:dateTimeInput() === 'last'">X</div> -->
+                </div>
+                <div class="timestamp-subcontainer__child">
+                  <div class="timestamp-message sequence">
+                    <span>Last Sequence</span>
+                  </div>
+                  <label>Date</label>
+                  <input id="getDateEnd" type="date" name="datetime-end" data-bind="value:dateEnd()">
+                  <label>Time</label>
+                  <input id="getTimeEnd" type="time" name="datetime-end" data-bind="value:timeEnd()">
+
+                  <!-- <input id="getDateEnd" type="date" name="datetime-end" data-bind="value:dateEnd(), event:{click:$root.toggleTimestamp}">
+                  <input id="getTimeEnd" type="time" name="datetime-end" data-bind="value:timeEnd(), event:{click:$root.toggleTimestamp}"> -->
+
+                  <div class="buttonContainer">
+                    <div id="updateTimestampEndContainer">
+                      <span id="updateTimestampEnd"/></span>
+                    </div>
+                  </div>
+                  <!-- <div class="buttonContainer" data-bind="visible:dateTimeInput() === 'last'">
+                    <div id="updateTimestampEndContainer">
+                      <span id="updateTimestampEnd"/></span>
+                    </div>
+                  </div> -->
+                  <!-- <div class="transparent button-match" data-bind="visible:dateTimeInput() === 'first'">X</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div id="approveSequencesContainer" class="dijitHidden">
+              <div id="hideApproveSequencesContainer" class="close-button">
+                <span id="hideApproveSequences"/></span>
+              </div>
+              <h4 class="batch-message">Batch Approve Sequences</h4>
+              <div class="batch-message">Please specify sequences to approve</div>
+              <input class="batch-message" id="batchSequences" type="text" name="batch-sequences" value="" placeholder="e.g. 1-5, 8, 11-13">
+
+                  <div class="buttonContainer">
+                    <div id="batchApproveSequencesContainer">
+                      <span id="batchApproveSequences"/></span>
+                    </div>
+                  </div>
+            </div>
+
+					</div>
+					<!-- deploymentView End-->
+
+
+					<div data-dojo-type="dijit/layout/ContentPane" data-dojo-id="sequenceDeploymentView" id="sequenceDeploymentView">
+					<div class="row backButtons" data-bind="visible:!isFullScreenMode()">
+						<div class="appText">&#9668; Back to &nbsp;</div>
+						<div data-bind="visible:currentFilter()=='deployment'">
+							<div id="deploymentLink2"></div>
+						</div>
+
+						<div data-bind="visible:currentFilter()=='species'">
+							<div id="dashboardLink3" class="backLink"></div>
+						</div>
+						<div class="appText">&nbsp;/&nbsp;</div>
+						<div id="sequenceReviewLink" class="row backLink"></div>
+					</div>
+
+						<!-- <div id="deploymentTitle2" class="sectionTitle" data-bind="text:currentDeploymentTitle() + ', ' + selectedDeploymentGraphic().attributes.username">
+						</div> -->
+						<div id="deploymentTitle2" class="sectionTitle" data-bind="text:currentDeploymentTitle()">
+						</div>
+						<!-- <div class="appText volunteerName"
+						data-bind="text:selectedDeploymentGraphic().attributes.username">
+						</div> -->
+						<div id="selectedSequencesPhotosCarouselBlock" class="trayBox dijitHidden" style="padding:7px">
+						</div>
+						<div id="selectedSequencesPhotosCarousel" class="trayBox" style="padding:7px">
+							<div data-bind="foreach:sequences" class="carouselContainer">
+								<div class="carouselItem showPointer" data-bind="event:{click:$parent.onClickSequence},attr:{id:'sequenceView_'+first_photo.photo_id}">
+									<div data-bind="visible:review_status && review_status=='approved'" class="photoSelectedChecked small">&#10003;</div>
+									<div class="smallImage" data-bind="css:{selectedImage:isActive}">
+									<img max-width="100px" height="100%" data-bind="attr:{src:$root.photoServer() + first_photo.photo_id+'_t.jpg'}"/>
+									<div class="activeImageIcon" data-bind="visible:isActive">▲</div>
+									<div class="imageMeta"><span data-bind="text:$index()+1
+										"></span>/<span data-bind="text:$parent.totalRecords"></span></div>
+									</div>
+
+
+									<!-- <span class="appText">Sequence #:&nbsp;</span> -->
+									<!-- <span class="appText" data-bind="text:sequence_num"></span> -->
+									<div style="padding-left:3px">
+										<div class="appText" data-bind="foreach:identifications">
+												<span data-bind="text:count"></span>&nbsp;<span data-bind="text:name"></span>&nbsp;
+										</div>
+										<!-- ko if: $data.deployment_title -->
+										<span class="appText" data-bind="text:deployment_title"></span>,
+										<span class="appText" data-bind="text:deployment_username"></span>
+										<!-- /ko -->
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="selectedPhotoContainer">
+							<div id="fullScreenToggle" class="normalScreenMode">&nbsp;</div>
+
+							<div id="mainPhotoWrapper" data-dojo-type="dijit/layout/ContentPane">
+							<div data-bind="style: { visibility: currentIndividualPos() > 0 ? 'visible' : 'hidden' }" class="mainPhotoNavLeft appLink" id="mainPhotoNavLeft">&#9668;
+							</div>
+							<a target="_blank" data-bind="attr:{href:$root.photoServer() + selectedMainPhoto().photo_id + '_o.jpg'}">
+							<img class="mainPhoto" title="Click to view high resolution" data-bind="attr:{src:$root.photoServer() + selectedMainPhoto().photo_id+'_z.jpg'}"/>
+							</a>
+
+							<div data-bind="style: { visibility: currentIndividualPos() < sequencePhotos().length-1 ? 'visible' : 'hidden' }"  class="mainPhotoNavRight appLink" id="mainPhotoNavRight">&#9658;
+							</div>
+							</div>
+						</div>
+
+						<div id="selectedSpeciesPanel" class="standardBox">
+              <div class="top-panel">
+                <div class="sectionTitle">Selected Species (<span data-bind="text:currentSequenceIdentifications().length"></span>)</div>
+
+
+                <div data-bind="foreach:currentSequenceIdentifications" class="identList">
+                  <div class="identListItem">
+                    <div class="species-flex-row">
+                      <div data-bind="text:name,attr:{title:name}" class="identName bold-text"></div>
+                      <div>
+                        <div id="speciesCountDecrement" data-bind="event:{click:$root.speciesIdentificationDecrement},style: { visibility:count>1 ? 'visible' : 'hidden' }">&#9660;</div>
+                        <!-- ,style: { visibility:count>1 ? 'visible' : 'hidden' } -->
+                        <input type="textbox" data-bind="attr:{value:count}" readonly class="identificationsTextbox">
+                      </input>
+                      <div id="speciesCountIncrement" data-bind="event:{click:$root.speciesIdentificationIncrement},style: { visibility:count<100 ? 'visible' : 'hidden' }"><span>&#9650;</div>
+                      </div>
+                      <!-- <div class="identListItem"><span data-bind="text:count"></span> -->
+
+                      <div data-bind="event:{click:$root.removeSpeciesFromIdentifications}" class="removeSpeciesButton">-</div>
+
+                    </div>
+
+                    <br>
+                    <div class="sectionTitle">Sex</div>
+                    <div>
+                      <input data-bind="event:{click:$root.selectSpeciesGender},checked:sex,name:sg" type="radio" value="F" />
+                      <span data-bind="event:{click:$root.selectSpeciesGender}">Female</span>
+                      <input data-bind="event:{click:$root.selectSpeciesGender},checked:sex,name:sg" type="radio" value="M" />
+                      <span data-bind="event:{click:$root.selectSpeciesGender}">Male</span>
+                      <input data-bind="event:{click:$root.selectSpeciesGender},checked:sex,name:sg" type="radio" value="U" />
+                      <span data-bind="event:{click:$root.selectSpeciesGender}">Unknown</span>
+                    </div>
+
+                    <br>
+                    <div class="sectionTitle">Age</div>
+
+                    <div>
+                      <input data-bind="event:{click:$root.selectSpeciesAge},checked:age,name:sn" type="radio" value="J" />
+                      <span data-bind="event:{click:$root.selectSpeciesAge}">Juvenile</span>
+                      <input data-bind="event:{click:$root.selectSpeciesAge},checked:age,name:sn" type="radio" value="A" />
+                      <span data-bind="event:{click:$root.selectSpeciesAge}">Adult</span>
+                      <input data-bind="event:{click:$root.selectSpeciesAge},checked:age,name:sn" type="radio" value="U" />
+                      <span data-bind="event:{click:$root.selectSpeciesAge}">Unknown</span>
+                    </div>
+
+                    <!-- <br>
+                    <input id="toggleSpeciesIdentifiable" type="checkbox" data-bind="event:{click:$root.toggleSpeciesIdentifiable},checked:individually_identifiable"/>
+                    <span data-bind="event:{click:$root.toggleSpeciesIdentifiable}" class="bold-text">Individually Identifiable</span> -->
+
+                  </div>
+                  <!-- </div> -->
+                </div>
+
+                <div id="searchSpeciesContainer">
+                  <span id="searchSpecies"/></span>
+                </div>
+
+                <div data-bind="foreach:identificationsFilteredList" class="newIdentifications">
+                  <div class="listItem" data-bind="event:{click:$root.addSpeciesToIdentifications}">
+                    <!-- <input type="checkbox" data-bind="checked:$root.selectedIdentifications,attr:{value:id}}"></input> -->
+                    <!-- <input type="textbox" class="identificationsTextbox" data-bind="value:count,event:{keyup:$root.changeIdentificationCount}"></input> -->
+                    <!-- <input type="button" id="addSpeciesButton" value="+" data-bind="event:{keyup:$root.addSpeciesToIdentifications}"> -->
+                    <div  class="addSpeciesButton">+</div>
+                    <div  data-bind="text:name" class="identName2"></div>
+                  </div>
+                </div>
+              </div>
+
+							<div id="favoritePhotoCheckContainer">
+                <!-- <div id="favoritePhotoCheck"></div> -->
+
+                <div class="buttonContainer">
+                  <div class="buttonContainer__flex">
+                    <span class="favorite-container">
+                      <input id="toggleFavoritePhoto" type="checkbox" data-bind="checked:selectedMainPhoto().favorite"/>
+                      <label data-bind="event:{click:$root.updateFavoritePhoto}">Favorite</label>
+                    </span>
+                    <span class="identifiable-container">
+                      <input id="toggleSpeciesIdentifiable" type="checkbox" data-bind="checked:individuallyIdentifiable()"/>
+                      <label data-bind="event:{click:$root.toggleAllSpeciesIdentifiable}">Individually Identifiable</label>
+                    </span>
+                  </div>
+									<div id="approveButton"></div>
+								 </div>
+							</div>
+
+						</div>
+
+						<div id="sequencePhotosCarousel">
+							<div data-bind="foreach:sequencePhotos" class="carouselContainer">
+								<div class="carouselItem showPointer" data-bind="event:{click:$parent.onClickIndividualPhoto},attr:{id:'sequenceViewIndividual_'+photo_id}">
+									<div class="smallImage" data-bind="css:{selectedImage:isActive}">
+									<img max-width="100px" height="100%" data-bind="attr:{src:$parent.photoServer() + photo_id + '_t.jpg'}"/>
+									<div class="activeImageIcon" data-bind="visible:isActive">▲</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- sequenceDeploymentView  End-->
+
+
+
+		</div><!-- stack container -->
+
+
+
+	</div><!-- main bordercontainer-->
+
+
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
