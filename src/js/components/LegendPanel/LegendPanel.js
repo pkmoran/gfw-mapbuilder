@@ -85,6 +85,7 @@ export default class LegendPanel extends Component {
         const layer = map.getLayer(layerId);
         if (layer) {
           if(layer.arcgisProps == undefined) {
+            debugger;
             legendInfos.push({ layer, title: '' }); 
           } else {
             legendInfos.push({ layer, title: layer.arcgisProps.title });
