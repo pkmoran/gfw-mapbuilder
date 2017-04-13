@@ -84,17 +84,37 @@ export default class LegendPanel extends Component {
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
         if (layer) {
-          if(layer.arcgisProps == undefined) {
-            debugger;
-            legendInfos.push({ layer, title: '' }); 
-          } else {
-            legendInfos.push({ layer, title: layer.arcgisProps.title });
+          if(layer.url != null) {
+            if(layer.url.startsWith("http://gis-gfw.wri.org"))
+            {
+              legendInfos.push({ layer, title: ' ' });
+            } else {
+              if(layer.arcgisProps == undefined) {
+                // debugger;
+                legendInfos.push({ layer, title: '' }); 
+              } else {
+                legendInfos.push({ layer, title: layer.arcgisProps.title });
+              }
+            }
           }
         }
       });
     }
     return legendInfos;
   }
+
+  // if(layer.arcgisProps == undefined) {
+  //           let str = layer.url
+  //           console.log(str);
+  //           if(str != null) {
+  //             if(str.startsWith("http://gis-gfw.wri.org")) {
+  //                console.log("YES: ", layer.url);
+  //               legendInfos.push({ layer, title: ' ' }); 
+  //             } else {
+  //               legendInfos.push({ layer, title: layer.arcgisProps.title }); 
+  //             }
+  //           }
+  //         }
 
   render () {
     const {tableOfContentsVisible, legendOpen} = this.props;
