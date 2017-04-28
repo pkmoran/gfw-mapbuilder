@@ -41,7 +41,7 @@ export default class LegendPanel extends Component {
     const {map, webmapInfo} = this.context;
     const {basemapLayerIds, graphicsLayerIds} = map;
     let {layerIds = []} = map;
-    let legendInfos = [];
+    const legendInfos = [];
     let ids = [];
     // Loop through layer ids and if those layers exist, add them to the legend
     // Add any layers we want to exclude from the legend to ignores, including basemapLayerIds
@@ -84,14 +84,14 @@ export default class LegendPanel extends Component {
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
         if (layer) {
-          if(layer.url != null) {
-            if(layer.url.startsWith("http://gis-gfw.wri.org"))
+          if(layer.url !== null) {
+            if(layer.url.startsWith('http://gis-gfw.wri.org'))
             {
               legendInfos.push({ layer, title: ' ' });
             } else {
-              if(layer.arcgisProps == undefined) {
+              if(layer.arcgisProps === undefined) {
                 // debugger;
-                legendInfos.push({ layer, title: '' }); 
+                legendInfos.push({ layer, title: '' });
               } else {
                 legendInfos.push({ layer, title: layer.arcgisProps.title });
               }
@@ -109,9 +109,9 @@ export default class LegendPanel extends Component {
   //           if(str != null) {
   //             if(str.startsWith("http://gis-gfw.wri.org")) {
   //                console.log("YES: ", layer.url);
-  //               legendInfos.push({ layer, title: ' ' }); 
+  //               legendInfos.push({ layer, title: ' ' });
   //             } else {
-  //               legendInfos.push({ layer, title: layer.arcgisProps.title }); 
+  //               legendInfos.push({ layer, title: layer.arcgisProps.title });
   //             }
   //           }
   //         }
