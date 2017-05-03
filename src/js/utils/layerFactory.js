@@ -38,18 +38,21 @@ export default (layer, lang) => {
       options.id = layer.id;
       options.visible = layer.visible || false;
       esriLayer = new TiledLayer(layer.url, options);
+      esriLayer.order = layer.order;
     break;
     case 'webtiled':
       options.id = layer.id;
       options.visible = layer.visible || false;
       if (layer.subDomains) { options.subDomains = layer.subDomains; }
       esriLayer = new WebTiledLayer(layer.url, options);
+      esriLayer.order = layer.order;
     break;
     case 'image':
       options.id = layer.id;
       options.visible = layer.visible || false;
       options.opacity = layer.opacity || 1;
       esriLayer = new ImageLayer(layer.url, options);
+      esriLayer.order = layer.order;
     break;
     case 'dynamic':
       // Create some image parameters
@@ -69,6 +72,7 @@ export default (layer, lang) => {
         layer.layerIds.forEach((id) => { options.infoTemplates[id] = { infoTemplate: template }; });
       }
       esriLayer = new DynamicLayer(layer.url, options);
+      esriLayer.order = layer.order;
     break;
     case 'feature':
       options.id = layer.id;
@@ -83,6 +87,7 @@ export default (layer, lang) => {
       options.visible = layer.visible || false;
       if (layer.popup) { options.infoTemplate = layerUtils.makeInfoTemplate(layer.popup); }
       esriLayer = new GraphicsLayer(options);
+      esriLayer.order = layer.order;
     break;
     case 'glad':
       options.id = layer.id;
@@ -92,6 +97,7 @@ export default (layer, lang) => {
       options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new GladLayer(options);
+      esriLayer.order = layer.order;
     break;
     case 'loss':
       options.id = layer.id;
@@ -101,6 +107,7 @@ export default (layer, lang) => {
       // options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverLossLayer(options);
+      esriLayer.order = layer.order;
     break;
     case 'gain':
       options.id = layer.id;
@@ -110,10 +117,12 @@ export default (layer, lang) => {
       // options.confidence = layer.confidence;
       options.visible = layer.visible || false;
       esriLayer = new TreeCoverGainLayer(options);
+      esriLayer.order = layer.order;
     break;
     case 'terra':
       layer.visible = layer.visible || false;
       esriLayer = new TerraILayer(layer);
+      esriLayer.order = layer.order;
     break;
     default:
       throw new Error(errors.incorrectLayerConfig(layer.type));

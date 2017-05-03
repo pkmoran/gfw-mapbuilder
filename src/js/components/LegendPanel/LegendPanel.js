@@ -9,7 +9,6 @@ const closeSymbolCode = 9660,
 
 let legend;
 
-
 export default class LegendPanel extends Component {
 
   static contextTypes = {
@@ -33,29 +32,30 @@ export default class LegendPanel extends Component {
         layerInfos: this.getLayersForLegend()
       }, this.refs.legendNode);
       legend.startup();
+      console.log(legend);
     } else if (legend) {
       legend.refresh(this.getLayersForLegend());
+      console.log(legend);
     }
   }
 
   getLayersForLegend () {
-    const {map, webmapInfo} = this.context;
+    const {map, webmapInfo, settings} = this.context;
     const {basemapLayerIds, graphicsLayerIds} = map;
     let {layerIds = []} = map;
-    let legendInfos = [];
+    const legendInfos = [];
     let ids = [];
-
     // Loop through layer ids and if those layers exist, add them to the legend
     // Add any layers we want to exclude from the legend to ignores, including basemapLayerIds
     // If a layer has a legendLayerId configured in the resources.js, you will probably want to add it here to prevent
     // two legends from the same service from showing up
     let ignores = [
       layerKeys.MASK,
-      layerKeys.TREE_COVER,
-      layerKeys.AG_BIOMASS,
-      layerKeys.USER_FEATURES,
-      layerKeys.TREE_COVER_GAIN,
-      layerKeys.TREE_COVER_LOSS
+      // layerKeys.TREE_COVER,
+      // layerKeys.AG_BIOMASS,
+      // layerKeys.USER_FEATURES,
+      // layerKeys.TREE_COVER_GAIN,
+      // layerKeys.TREE_COVER_LOSS
     ];
 
     //- Add basemap layers and graphics layers
@@ -67,8 +67,8 @@ export default class LegendPanel extends Component {
       layerIds = layerIds.concat(graphicsLayerIds);
     }
 
-    //- Get layers from the webmap, we could comment out this block but may miss any layers added from
-    //- the webmap as graphics or feature layers since those won't be in layerIds
+    // //- Get layers from the webmap, we could comment out this block but may miss any layers added from
+    // //- the webmap as graphics or feature layers since those won't be in layerIds
     // legendInfos = webmapInfo.operationalLayers.filter((item) => {
     //   //- Add them to ignores so they do not show up twice
     //   if (item.layerObject) { ignores.push(item.id); }
@@ -76,9 +76,19 @@ export default class LegendPanel extends Component {
     // }).map((layer) => {
     //   return {
     //     layer: layer.layerObject,
-    //     title: '' // layer.layerObject.name
+    //     title: 'lucas' // layer.layerObject.name
     //   };
     // });
+
+    function compare(a, b) {
+      if (a.layer.order < b.layer.order) {
+        return -1;
+      }
+      if (a.layer.order > b.layer.order) {
+        return 1;
+      }
+      return 0;
+    }
 
     if (layerIds) {
       //- Remove layers to ignore
@@ -86,11 +96,28 @@ export default class LegendPanel extends Component {
       ids.forEach((layerId) => {
         const layer = map.getLayer(layerId);
         if (layer) {
-          legendInfos.push({ layer, title: '' });
+
+          if(layer.url !== null) {
+            // layer.arcgisProps.title = layer.order;
+            if(layer.url.startsWith('http://gis-gfw.wri.org')) {
+              legendInfos.push({ layer, title: '1' });
+            } else {
+              if(layer.arcgisProps === undefined) {
+                legendInfos.push({ layer, title: '2' });
+              } else {
+                legendInfos.push({ layer, title: layer.arcgisProps.title });
+              }
+            }
+          }
         }
       });
     }
+    legendInfos.sort(compare);
+    legendInfos.reverse();
+    legendInfos.forEach((info) => {
 
+      console.log(info.layer.id + ': ' + info.layer.order);
+    });
     return legendInfos;
   }
 
