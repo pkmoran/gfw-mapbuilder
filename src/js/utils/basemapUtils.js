@@ -89,7 +89,9 @@ export default {
       map.removeLayer(customBasemapLayer);
     }
     // - Update the template and add the layer
-    const template = config.templateUrl.replace(/\/\d{4}\//, `/${year}/`);
+    let template = config.templateUrl.split('year=')[0];
+    template += 'year=' + year;
+    console.log(template);
     customBasemapLayer = new WebTiledLayer(template, { id: landsatLayerId });
     map.addLayer(customBasemapLayer, newBasemapIndex);
   },
