@@ -15,6 +15,9 @@ var fs = require('fs');
 //- Read the version from the package json
 var version = require('./package.json').version;
 
+var key = require('./customEnv.js').key;
+var cert = require('./customEnv.js').cert;
+
 //- Set up error handling using plumber
 var plumber = function () {
   return gulpPlumber({
@@ -210,8 +213,8 @@ gulp.task('browser-sync', function () {
     open: false,
     ui: false,
     https: {
-      key: '/Users/jnordling/localhost.ssl/key.pem',
-      cert: '/Users/jnordling/localhost.ssl/cert.pem'
+      key: key,
+      cert: cert
     }
   });
 });
