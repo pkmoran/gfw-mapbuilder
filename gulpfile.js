@@ -208,7 +208,11 @@ gulp.task('browser-sync', function () {
     logFileChanges: false,
     ghostMode: false,
     open: false,
-    ui: false
+    ui: false,
+    https: {
+      key: '/Users/jnordling/localhost.ssl/key.pem',
+      cert: '/Users/jnordling/localhost.ssl/cert.pem'
+    }
   });
 });
 
