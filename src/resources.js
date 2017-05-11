@@ -425,10 +425,10 @@ export default {
         }
       }, {
           order: 6,
-          id: 'TEST_COVER',
+          id: 'WFS_COVER',
           type: 'wfs',
           url: 'http://139.255.83.75:3000/geoserver/smallholder_database/wfs',
-          technicalName: 'test_cover',
+          technicalName: 'wfs_cover',
           colormap: [[1, 0, 179, 0]],
           inputRange: [30, 101],
           outputRange: [1],

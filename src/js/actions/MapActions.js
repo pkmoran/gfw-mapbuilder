@@ -108,6 +108,7 @@ class MapActions {
     const esriLayers = uniqueLayers.filter(layer => layer && (layer.url || layer.type === 'graphic')).map((layer) => {
       return layerFactory(layer, language);
     });
+    console.log(esriLayers);
     map.addLayers(esriLayers);
     // If there is an error with a particular layer, handle that here
     map.on('layers-add-result', result => {

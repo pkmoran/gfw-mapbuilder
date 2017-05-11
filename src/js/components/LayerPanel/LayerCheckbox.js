@@ -115,6 +115,7 @@ export default class LayerCheckbox extends Component {
   }
 
   toggleLayer () {
+    debugger;
     const {layer} = this.props;
     if (layer.disabled) { return; }
     if (layer.subId) {
