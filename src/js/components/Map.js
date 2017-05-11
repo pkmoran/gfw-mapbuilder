@@ -131,7 +131,6 @@ export default class Map extends Component {
 
   createMap = (webmap, options) => {
     const {language, settings} = this.context;
-
     arcgisUtils.createMap(webmap, this.refs.map, { mapOptions: options, usePopupManager: true }).then(response => {
       // Add operational layers from the webmap to the array of layers from the config file.
       const {itemData} = response.itemInfo;
@@ -149,6 +148,7 @@ export default class Map extends Component {
       });
 
       on.once(response.map, 'update-end', () => {
+        console.log(response.map);
         mapActions.createLayers(response.map, settings.layerPanel, this.state.activeLayers, language);
         //- Set the default basemap in the store
         const basemap = itemData && itemData.baseMap;
