@@ -82,7 +82,7 @@ export default {
   alternativeRestorationTableDescription: 'Some explanatory text for this anlaysis',
   alternativeSlopeDescription: 'Some explanatory text for this anlaysis',
   // DO NOT MODIFY SHARINGHOST unless you are configuring this for a Portal Environment
-  sharinghost: 'http://www.arcgis.com',
+  sharinghost: 'https://www.arcgis.com',
   analyticsCode: '',
   userFeatureToken: {
     'localhost': 'TjEeQfPMtR-0kjqzTqIZ7R-NAzGK1Z2sEQo6Dzt17O42DeIlaAxdqeg7GPMANVcC',
@@ -177,7 +177,7 @@ export default {
         id: 'TREE_COVER_GAIN',
         type: 'gain', //'image',
         // url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        url: 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
+        url: 'https://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         technicalName: 'tree_cover_gain',
         legendLayer: 1,
         label: {
@@ -200,7 +200,7 @@ export default {
         order: 3,
         id: 'IMAZON_SAD',
         type: 'dynamic',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+        url: 'https://34.193.5.253/arcgis/rest/services/forest_change/MapServer',
         technicalName: 'imazon_sad',
         layerIds: [2],
         label: {
@@ -223,7 +223,7 @@ export default {
         order: 4,
         id: 'GLAD_ALERTS',
         type: 'glad',
-        url: 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'umd_landsat_alerts',
         legendLayer: 7,
         minDateValue: 15000,
@@ -249,7 +249,7 @@ export default {
         order: 5,
         id: 'TERRA_I_ALERTS',
         type: 'terra',
-        url: 'http://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/terrai_prod/tiles/{z}/{x}/{y}.png',
         technicalName: 'terra_i_alerts',
         legendLayer: 13,
         maxZoom: 10,
@@ -257,7 +257,7 @@ export default {
         // We are setting this way over max, the max date will get set set when TerraIControls mounts
         // We set this over max so all data is visible by default, and it will update the dates when available
         maxDateValue: 20000,
-        imageServer: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
+        imageServer: 'https://34.193.5.253/arcgis/rest/services/image_services/terrai_analysis/ImageServer',
         label: {
           en: 'Terra-I Alerts',
           fr: 'Alertes Terra-I',
@@ -344,7 +344,7 @@ export default {
         order: 2,
         id: 'IFL',
         type: 'dynamic',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        url: 'https://34.193.5.253/arcgis/rest/services/forest_cover/MapServer',
         technicalName: 'intact_forest_landscapes_change',
         layerIds: [0],
         label: {
@@ -359,7 +359,7 @@ export default {
         order: 3,
         id: 'AG_BIOMASS',
         type: 'image',
-        url: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+        url: 'https://34.193.5.253/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
         technicalName: 'aboveground_biomass',
         legendLayer: 8,
         label: {
@@ -374,7 +374,7 @@ export default {
         order: 4,
         id: 'LAND_COVER',
         type: 'webtiled',
-        url: 'http://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
+        url: 'https://wri-tiles.s3.amazonaws.com/global-landcover/{level}/{col}/{row}.png',
         technicalName: 'global_landcover',
         legendLayer: 15,
         rasterId: '$568',
@@ -475,13 +475,13 @@ export default {
     extraLayers: [{
       id: 'MASK',
       type: 'dynamic',
-      url: 'http://gis.forest-atlas.org/arcgis/rest/services/country_masks/country_mask_global/MapServer',
+      url: 'https://forestatlas-prod.blueraster.io/server/rest/services/country_masks/country_mask_global/MapServer',
       opacity: 0.35,
       layerIds: [0]
     }, {
       id: 'LEGEND_LAYER',
       type: 'dynamic',
-      url: 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+      url: 'https://34.193.5.253/arcgis/rest/services/legends/MapServer',
       visible: false,
       opacity: 0,
       layerIds: []

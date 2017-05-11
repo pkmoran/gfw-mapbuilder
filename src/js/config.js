@@ -42,13 +42,13 @@ const config = {
   },
 
   urls: {
-    metadataApi: 'http://api.globalforestwatch.org/metadata',
-    metadataXmlEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`,
-    agolItemEndpoint: (itemId) => `http://www.arcgis.com/sharing/rest/content/items/${itemId}`
+    metadataApi: 'https://api.globalforestwatch.org/metadata',
+    metadataXmlEndpoint: (itemId) => `https://www.arcgis.com/sharing/rest/content/items/${itemId}/info/metadata/metadata.xml`,
+    agolItemEndpoint: (itemId) => `https://www.arcgis.com/sharing/rest/content/items/${itemId}`
   },
 
   upload: {
-    portal: 'http://www.arcgis.com/sharing/rest/content/features/generate',
+    portal: 'https://www.arcgis.com/sharing/rest/content/features/generate',
     shapefileParams: (name, spatialReference, extentWidth, mapWidth) => {
       return {
         'name': name,
