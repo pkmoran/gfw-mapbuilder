@@ -46,7 +46,7 @@ export default (layer, lang) => {
         'url': 'http://suite.opengeo.org/geoserver/wfs',
         'version': '1.1.0',
         'name': 'citylimits',
-        'wkid': 3857,
+        'wkid': 4326,
         'maxFeatures': 100
       };
       urlUtils.addProxyRule({
