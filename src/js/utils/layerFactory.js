@@ -43,7 +43,7 @@ export default (layer, lang) => {
       // options.name = 'bidang_smallholder';
       esriLayer = new WFSLayer();
       var opts = {
-        'url': 'http://suite.opengeo.org/geoserver/wfs',
+        'url': 'http://suite.opengeo.org/geoserver/wfs?service=wfs&request=GetCapabilities',
         'version': '1.1.0',
         'name': 'citylimits',
         'wkid': 4326,
