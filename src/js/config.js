@@ -19,7 +19,6 @@ const config = {
     'gis-potico.wri.org',
     'gis-treecover.wri.org',
     'api.globalforestwatch.org',
-    'http://suite.opengeo.org/',
     'production-api.globalforestwatch.org',
     'production-api.globalforestwatch.org/v1/ogr',
     'production-api.globalforestwatch.org/v1/ogr/convert'

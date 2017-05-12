@@ -8,7 +8,7 @@ import FeatureLayer from 'esri/layers/FeatureLayer';
 import TerraILayer from 'js/layers/TerraILayer';
 import WFSLayer from 'esri/layers/WFSLayer';
 import GladLayer from 'js/layers/GladLayer';
-import esriConfig from 'esri/config';
+import urlUtils from 'esri/urlUtils';
 import TreeCoverLossLayer from 'js/layers/TreeCoverLossLayer';
 import TreeCoverGainLayer from 'js/layers/TreeCoverGainLayer';
 import layerUtils from 'utils/layerUtils';
@@ -49,8 +49,10 @@ export default (layer, lang) => {
         'wkid': 3857,
         'maxFeatures': 100
       };
-      // esriConfig.defaults.io.proxyUrl = "/sproxy/proxy.php";
-      esriConfig.defaults.io.corsEnabledServers.push('http://suite.opengeo.org/');
+      urlUtils.addProxyRule({
+        proxyUrl: 'http://staging.blueraster.com/proxy/proxy.php',
+        urlPrefix: 'http://suite.opengeo.org/geoserver/wfs'
+      });
       // esriLayer.setPolygonSymbol();
       esriLayer.fromJson(opts);
       console.log(esriLayer);
