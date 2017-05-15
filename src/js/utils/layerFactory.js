@@ -9,9 +9,14 @@ import TerraILayer from 'js/layers/TerraILayer';
 import WFSLayer from 'esri/layers/WFSLayer';
 import GladLayer from 'js/layers/GladLayer';
 import urlUtils from 'esri/urlUtils';
+import esriConfig from 'esri/config';
+import Color from 'esri/Color';
+import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
+import SimpleRenderer from 'esri/renderers/SimpleRenderer';
 import TreeCoverLossLayer from 'js/layers/TreeCoverLossLayer';
 import TreeCoverGainLayer from 'js/layers/TreeCoverGainLayer';
 import layerUtils from 'utils/layerUtils';
+import InfoTemplate from 'esri/InfoTemplate';
 import {errors} from 'js/config';
 
 /**
@@ -36,6 +41,9 @@ export default (layer, lang) => {
   let esriLayer;
   switch (layer.type) {
     case 'wfs':
+      const infoTemplate = new InfoTemplate("Attributes", "${*}");
+      const s1 = new SimpleFillSymbol().setColor(new Color([139, 209, 0, 0.5]));
+      var r1 = new SimpleRenderer(s1);
       // options.id = layer.id;
       // options.visible = layer.visible || false;
       // options.url = 'http://139.255.83.75:3000/geoserver/smallholder_database/wfs?SERVICE=WFS&REQUEST=GetCapabilities';
@@ -43,20 +51,22 @@ export default (layer, lang) => {
       // options.name = 'bidang_smallholder';
       esriLayer = new WFSLayer();
       var opts = {
-        'url': 'http://suite.opengeo.org/geoserver/wfs?service=WFS&REQUEST=GetCapabilities',
+        'url': 'http://suite.opengeo.org/geoserver/wfs',
         'version': '1.1.0',
         'name': 'citylimits',
-        'wkid': 4326,
-        'maxFeatures': 100
+        'wkid': 4326
       };
       urlUtils.addProxyRule({
-        proxyUrl: 'http://staging.blueraster.com/proxy/proxy.php',
-        urlPrefix: 'http://suite.opengeo.org/geoserver/wfs'
+        proxyUrl: '../../../proxy/PHP/proxy.php',
+        urlPrefix: 'http://suite.opengeo.org/'
       });
+      // esriConfig.defaults.io.proxyUrl = "../../proxy/PHP/proxy.php";
+      // esriConfig.defaults.io.corsEnabledServers.push('http://localhost:3000/proxy/proxy.php');
       // esriLayer.setPolygonSymbol();
       esriLayer.fromJson(opts);
+      esriLayer.setInfoTemplate(infoTemplate);
+      esriLayer.setRenderer(r1);
       console.log(esriLayer);
-      debugger;
       break;
     case 'tiled':
       options.id = layer.id;
