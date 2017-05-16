@@ -51,11 +51,11 @@ export default class LegendPanel extends Component {
     // two legends from the same service from showing up
     let ignores = [
       layerKeys.MASK,
-      // layerKeys.TREE_COVER,
-      // layerKeys.AG_BIOMASS,
-      // layerKeys.USER_FEATURES,
-      // layerKeys.TREE_COVER_GAIN,
-      // layerKeys.TREE_COVER_LOSS
+      layerKeys.TREE_COVER,
+      layerKeys.AG_BIOMASS,
+      layerKeys.USER_FEATURES,
+      layerKeys.TREE_COVER_GAIN,
+      layerKeys.TREE_COVER_LOSS
     ];
 
     //- Add basemap layers and graphics layers
@@ -90,6 +90,7 @@ export default class LegendPanel extends Component {
       return 0;
     }
 
+    debugger;
     if (layerIds) {
       //- Remove layers to ignore
       ids = layerIds.filter(id => ignores.indexOf(id) === -1);
@@ -114,10 +115,10 @@ export default class LegendPanel extends Component {
     }
     legendInfos.sort(compare);
     legendInfos.reverse();
-    legendInfos.forEach((info) => {
-
-      console.log(info.layer.id + ': ' + info.layer.order);
-    });
+    // legendInfos.forEach((info) => {
+    //
+    //   console.log(info.layer.id + ': ' + info.layer.order);
+    // });
     return legendInfos;
   }
 
