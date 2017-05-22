@@ -46,6 +46,15 @@ export default {
   sadAlerts: true,
   gladAlerts: true,
   terraIAlerts: true,
+  customAnalysisOptions: [{
+    label: 'tim',
+    value: 'CUSTOM_TYPE',
+    group: 'test',
+    url: 'https://staging-api.globalforestwatch.org/api/v1/biomass-loss',
+    operation: 'geostore'
+    // period: '2015-01-01,2016-12-01'
+    // threshold: 30
+  }],
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,

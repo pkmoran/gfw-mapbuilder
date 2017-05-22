@@ -58,6 +58,7 @@ export default class Analysis extends Component {
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
       request.getRawGeometry(selectedFeature).then((geometry) => {
+        console.log(activeAnalysisType);
         performAnalysis({
           type: activeAnalysisType,
           geometry: geometry,

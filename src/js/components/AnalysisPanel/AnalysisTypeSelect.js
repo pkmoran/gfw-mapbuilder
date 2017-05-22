@@ -81,6 +81,10 @@ export default class AnalysisTypeSelect extends Component {
           return true;
       }
     });
+    console.log(options);
+    settings.customAnalysisOptions.forEach(option => {
+      options.push(option);
+    });
     //- Merge in the restoration options if the module is enabled and at least one options is enabled
     if (settings.restorationModule &&
       (settings.restorationSlopePotential || settings.restorationLandCover ||

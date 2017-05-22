@@ -18,6 +18,7 @@ import GeometryEngine from 'esri/geometry/geometryEngine';
 * @return {promise}
 */
 export default function performAnalysis (options) {
+  console.log(options);
   const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
@@ -82,6 +83,12 @@ export default function performAnalysis (options) {
     break;
     case analysisKeys.TERRA_I_ALERTS:
       analysisUtils.getTerraIAlerts(config, geometry).then(promise.resolve);
+    break;
+    case 'CUSTOM_TYPE':
+      const customGeneralizedGeometry = GeometryEngine.generalize(geometry, 10, true, 'miles');
+      console.log(config);
+      debugger;
+      analysisUtils.getCustomAnalysis(config, customGeneralizedGeometry).then(promise.resolve);
     break;
     default:
       //- This should only be the restoration analysis, since analysisType is a rasterId
