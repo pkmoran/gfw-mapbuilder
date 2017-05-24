@@ -1,9 +1,12 @@
+import VectorTileLayer from 'esri/layers/VectorTileLayer';
 import WebTiledLayer from 'esri/layers/WebTiledLayer';
 import appUtils from 'utils/AppUtils';
 import mapActions from 'actions/MapActions';
 import basemaps from 'esri/basemaps';
 
 const mapboxToken = 'pk.eyJ1Ijoid3JpIiwiYSI6IjU3NWNiNGI4Njc4ODk4MmIyODFkYmJmM2NhNDgxMWJjIn0.v1tciCeBElMdpnrikGDrPg';
+const mapboxTokenTim = 'pk.eyJ1IjoidGdpcmdpbiIsImEiOiJlQjdvS05jIn0.h9yB6fjZqcL11l8UH9RLmg';
+const tim_mapboxid = 'cj0dvq1xu000g2sn33wn3j8oh';
 const mapboxApiBase = 'https://api.tiles.mapbox.com/v4/';
 const mapboxLabelsId = 'wri.acf5a04e';
 const newBasemapIndex = 0;
@@ -61,6 +64,10 @@ export default {
       this.addWRILayer(map, contextual_mapboxid);
     }
 
+    if(basemap === 'custom_vectorTiles') {
+      this.addVectorTiles(map, tim_mapboxid);
+    }
+
     //- if it is a landsat basemap, add/update that here
     if (basemap === 'landsat') {
       const landsatConfig = appUtils.getObject(customBasemaps, 'id', 'landsat');
@@ -77,6 +84,13 @@ export default {
     customLabelLayer = new WebTiledLayer(labelsUrl, {});
     map.addLayer(customBasemapLayer, newBasemapIndex);
     map.addLayer(customLabelLayer, newBasemapLabelsIndex);
+  },
+
+  addVectorTiles (map, mapboxId) {
+    console.log('adding vector tile');
+    VectorTileLayer.ACCESS_TOKEN = mapboxTokenTim;
+    var vectorTileLayer = new VectorTileLayer(`mapbox://styles/tgirgin/${mapboxId}`)
+    map.addLayer(vectorTileLayer, newBasemapIndex);
   },
 
   addLandsatBasemap (map, config) {

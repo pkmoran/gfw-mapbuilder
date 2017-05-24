@@ -476,27 +476,39 @@ export default {
           zh: 'Landsat'
         }
       }, {
-        id: 'wri_mono',
+        id: 'custom_vectorTiles',
         thumbnailUrl: './css/images/wri_mono.png',
         title: {
-          en: 'WRI Mono',
-          fr: 'WRI Mono',
-          es: 'WRI Mono',
-          pt: 'WRI Mono',
-          id: 'WRI Mono',
-          zh: 'WRI Mono'
+          en: 'custom_vectorTiles',
+          fr: 'custom_vectorTiles',
+          es: 'custom_vectorTiles',
+          pt: 'custom_vectorTiles',
+          id: 'custom_vectorTiles',
+          zh: 'custom_vectorTiles'
         }
-      }, {
-        id: 'wri_contextual',
-        thumbnailUrl: './css/images/wri_contextual.png',
-        title: {
-          en: 'WRI Contextual',
-          fr: 'WRI Contextual',
-          es: 'WRI Contextual',
-          pt: 'WRI Contextual',
-          id: 'WRI Contextual',
-          zh: 'WRI Contextual'
-        }
+      // },
+      // {
+      //   id: 'wri_mono',
+      //   thumbnailUrl: './css/images/wri_mono.png',
+      //   title: {
+      //     en: 'WRI Mono',
+      //     fr: 'WRI Mono',
+      //     es: 'WRI Mono',
+      //     pt: 'WRI Mono',
+      //     id: 'WRI Mono',
+      //     zh: 'WRI Mono'
+      //   }
+      // }, {
+      //   id: 'wri_contextual',
+      //   thumbnailUrl: './css/images/wri_contextual.png',
+      //   title: {
+      //     en: 'WRI Contextual',
+      //     fr: 'WRI Contextual',
+      //     es: 'WRI Contextual',
+      //     pt: 'WRI Contextual',
+      //     id: 'WRI Contextual',
+      //     zh: 'WRI Contextual'
+      //   }
       }]
     },
     extraLayers: [{
