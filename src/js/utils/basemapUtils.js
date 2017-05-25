@@ -30,6 +30,7 @@ export default {
   * arcgis layers, just call setBasemap, this will unhide the layer if necessary
   */
   updateBasemap (map, basemap, customBasemaps) {
+    console.log(basemap);
     //- Remove custom basemap layer if it exists
     if (customBasemapLayer) {
       map.removeLayer(customBasemapLayer);
@@ -56,15 +57,16 @@ export default {
 
     //- if the basemap is a WRI Mono Basemap, add/update that here
     if (basemap === 'wri_mono') {
-      this.addWRILayer(map, mono_mapboxid);
+      // this.addWRILayer(map, mono_mapboxid);
     }
 
     //- if the basemap is a WRI Contextual Basemap, add/update that here
     if (basemap === 'wri_contextual') {
-      this.addWRILayer(map, contextual_mapboxid);
+      // this.addWRILayer(map, contextual_mapboxid);
     }
 
     if(basemap === 'custom_vectorTiles') {
+      console.log("LOL");
       this.addVectorTiles(map, tim_mapboxid);
     }
 

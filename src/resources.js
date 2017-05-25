@@ -489,7 +489,7 @@ export default {
       // },
       // {
       //   id: 'wri_mono',
-      //   thumbnailUrl: './css/images/wri_mono.png',
+      //   thumbnaailUrl: './css/images/wri_mono.png',
       //   title: {
       //     en: 'WRI Mono',
       //     fr: 'WRI Mono',
