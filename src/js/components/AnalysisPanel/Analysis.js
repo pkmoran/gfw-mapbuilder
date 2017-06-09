@@ -12,6 +12,7 @@ import SlopeBarChart from 'components/AnalysisPanel/SlopeBarChart';
 import DensityDisplay from 'components/LayerPanel/DensityDisplay';
 import BiomassChart from 'components/AnalysisPanel/BiomassChart';
 import FiresBadge from 'components/AnalysisPanel/FiresBadge';
+import CustomBadge from 'components/AnalysisPanel/CustomBadge';
 import BarChart from 'components/AnalysisPanel/BarChart';
 import analysisKeys from 'constants/AnalysisConstants';
 import performAnalysis from 'utils/performAnalysis';
@@ -53,7 +54,8 @@ export default class Analysis extends Component {
       activeTab,
       activeAnalysisType,
       canopyDensity,
-      activeSlopeClass
+      activeSlopeClass,
+      firesSelectIndex
     } = this.props;
 
     if (selectedFeature && activeAnalysisType && activeTab === tabKeys.ANALYSIS) {
@@ -64,7 +66,8 @@ export default class Analysis extends Component {
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
-          language: language
+          language: language,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -82,7 +85,8 @@ export default class Analysis extends Component {
       activeTab,
       activeAnalysisType,
       canopyDensity,
-      activeSlopeClass
+      activeSlopeClass,
+      firesSelectIndex
     } = nextProps;
 
     //- Only rerun the analysis if one of these things changes
@@ -105,7 +109,8 @@ export default class Analysis extends Component {
           canopyDensity: canopyDensity,
           activeSlopeClass: activeSlopeClass,
           settings: settings,
-          language: language
+          language: language,
+          firesSelectIndex: firesSelectIndex
         }).then((results) => {
           this.setState({ results: results, isLoading: false });
         }, () => {
@@ -121,74 +126,114 @@ export default class Analysis extends Component {
     const lossLabels = analysisConfig[analysisKeys.TC_LOSS].labels;
     const lcLayers = layerGroups.GROUP_LC ? layerGroups.GROUP_LC.layers : [];
     let labels, layerConf, colors;
-    switch (type) {
-      case analysisKeys.FIRES:
-        return <FiresBadge count={results.fireCount} />;
-      case analysisKeys.TC_LOSS_GAIN:
-        return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
-      case analysisKeys.LCC:
-        layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
-        return <CompositionPieChart
-          name={text[language].ANALYSIS_LCC_CHART_NAME}
-          counts={results.counts}
-          colors={layerConf.colors}
-          labels={layerConf.classes[language]} />;
-      case analysisKeys.TC_LOSS:
-        return <BarChart
-          name={text[language].ANALYSIS_TC_CHART_NAME}
-          counts={results.counts}
-          colors={analysisConfig[type].colors}
-          labels={lossLabels} />;
-      case analysisKeys.BIO_LOSS:
-        return <BiomassChart
-          payload={results}
-          labels={analysisConfig[type].labels}
-          colors={analysisConfig[type].colors}
-          />;
-      case analysisKeys.LC_LOSS:
-      case analysisKeys.INTACT_LOSS:
-      case analysisKeys.MANGROVE_LOSS:
-        layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
-        labels = (function () {
-          switch (type) {
-            case analysisKeys.LC_LOSS:
-              return layerConf.classes[language];
-            case analysisKeys.INTACT_LOSS:
-              return text[language].ANALYSIS_IFL_LABELS;
-            case analysisKeys.MANGROVE_LOSS:
-              return text[language].ANALYSIS_MANGROVE_LABELS;
+    console.log('results', results);
+
+    let customComponent;
+
+    if (settings.customAnalysis && settings.customAnalysis.length > 0) {
+      settings.customAnalysis.forEach(customCall => {
+        if (type === customCall.value) {
+          switch (customCall.analysisType) {
+            case 'activeFires':
+              customComponent = <FiresBadge count={results.fireCount} />;
+              break;
+            case 'sadAlerts':
+              customComponent = <CustomBadge chartConfig={customCall.chart} areaHa={results.areaHa.toFixed()} value={results.value} />;
+              break;
+            case 'gladAlerts':
+              // customComponent = <TimeSeriesChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
+              customComponent = <CustomBadge chartConfig={customCall.chart} areaHa={results.areaHa.toFixed()} value={results.value} />;
+              break;
+            case 'terraIAlerts':
+              customComponent = <CustomBadge chartConfig={customCall.chart} areaHa={results.areaHa.toFixed()} value={results.value} />;
+              break;
+            case 'treeCoverLoss':
+              customComponent = <LossGainBadge lossCounts={[results.loss]} gainCounts={[results.gain]} />;
+              break;
+            case 'treeCoverGain':
+              customComponent = <LossGainBadge lossCounts={[results.loss]} gainCounts={[results.gain]} />;
+              break;
+
             default:
-              return analysisConfig[type].labels;
+              // console.log('ohh noo');
+              break;
           }
-        })();
-        colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
-        return <TotalLossChart
-          counts={results.counts}
-          encoder={results.encoder}
-          options={results.options}
-          labels={labels}
-          lossLabels={lossLabels}
-          colors={colors} />;
-      case analysisKeys.SLOPE:
-        const {counts} = results;
-        labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
-        colors = settings.slopeAnalysisPotentialColors;
-        const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
-        //- Need a new chart to handle these values correctly
-        return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
-      case analysisKeys.SAD_ALERTS:
-        const {alerts} = results;
-        return <SadAlertsChart
-          alerts={alerts}
-          colors={analysisConfig[type].colors}
-          names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
-      case analysisKeys.GLAD_ALERTS:
-        return <TimeSeriesChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
-      case analysisKeys.TERRA_I_ALERTS:
-        return <TimeSeriesChart data={results} name={text[language].ANALYSIS_TERRA_I_ALERT_NAME} />;
-      default:
-      //- This should only be the restoration analysis, since its value is a plain rasterId
-        return <RestorationCharts results={results} />;
+        }
+      });
+    }
+
+    if (customComponent) {
+      return customComponent;
+    } else {
+      switch (type) {
+        case analysisKeys.FIRES:
+          return <FiresBadge count={results.fireCount} />;
+        case analysisKeys.TC_LOSS_GAIN:
+          return <LossGainBadge lossCounts={results.lossCounts} gainCounts={results.gainCounts} />;
+        case analysisKeys.LCC:
+          layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
+          return <CompositionPieChart
+            name={text[language].ANALYSIS_LCC_CHART_NAME}
+            counts={results.counts}
+            colors={layerConf.colors}
+            labels={layerConf.classes[language]} />;
+        case analysisKeys.TC_LOSS:
+          return <BarChart
+            name={text[language].ANALYSIS_TC_CHART_NAME}
+            counts={results.counts}
+            colors={analysisConfig[type].colors}
+            labels={lossLabels} />;
+        case analysisKeys.BIO_LOSS:
+          return <BiomassChart
+            payload={results}
+            labels={analysisConfig[type].labels}
+            colors={analysisConfig[type].colors}
+            />;
+        case analysisKeys.LC_LOSS:
+        case analysisKeys.INTACT_LOSS:
+        case analysisKeys.MANGROVE_LOSS:
+          layerConf = utils.getObject(lcLayers, 'id', layerKeys.LAND_COVER);
+          labels = (function () {
+            switch (type) {
+              case analysisKeys.LC_LOSS:
+                return layerConf.classes[language];
+              case analysisKeys.INTACT_LOSS:
+                return text[language].ANALYSIS_IFL_LABELS;
+              case analysisKeys.MANGROVE_LOSS:
+                return text[language].ANALYSIS_MANGROVE_LABELS;
+              default:
+                return analysisConfig[type].labels;
+            }
+          })();
+          colors = type === analysisKeys.LC_LOSS ? layerConf.colors : analysisConfig[type].colors;
+          return <TotalLossChart
+            counts={results.counts}
+            encoder={results.encoder}
+            options={results.options}
+            labels={labels}
+            lossLabels={lossLabels}
+            colors={colors} />;
+        case analysisKeys.SLOPE:
+          const {counts} = results;
+          labels = counts.map((v, index) => text[language].ANALYSIS_SLOPE_OPTION + (index + 1));
+          colors = settings.slopeAnalysisPotentialColors;
+          const tooltips = settings.labels[language].slopeAnalysisPotentialOptions;
+          //- Need a new chart to handle these values correctly
+          return <SlopeBarChart counts={counts} colors={colors} labels={labels} tooltips={tooltips} />;
+        case analysisKeys.SAD_ALERTS:
+          const {alerts} = results;
+          return <SadAlertsChart
+            alerts={alerts}
+            colors={analysisConfig[type].colors}
+            names={text[language].ANALYSIS_SAD_ALERT_NAMES} />;
+        case analysisKeys.GLAD_ALERTS:
+          return <TimeSeriesChart data={results} name={text[language].ANALYSIS_GLAD_ALERT_NAME} />;
+        case analysisKeys.TERRA_I_ALERTS:
+          return <TimeSeriesChart data={results} name={text[language].ANALYSIS_TERRA_I_ALERT_NAME} />;
+        default:
+        //- This should only be the restoration analysis, since its value is a plain rasterId
+          return <RestorationCharts results={results} />;
+      }
     }
   };
 
@@ -197,6 +242,9 @@ export default class Analysis extends Component {
     const {results, isLoading, error} = this.state;
     const {language, settings} = this.context;
     let chart, title, slopeSelect;
+
+    console.log('activeAnalysisType', activeAnalysisType);
+    console.log('results', results);
 
     // If we have results, show a chart
     if (results) {
