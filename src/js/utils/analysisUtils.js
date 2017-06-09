@@ -253,6 +253,128 @@ class Encoder {
 
 export default {
   /**
+  * Fetch who-knows-what based off of the user's custom analysis config in resources
+  */
+  getCustomData: (customConfig, geometry, canopyDensity, firesSelectIndex) => {
+    const deferred = new Deferred();
+    const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+    const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+    const geoStore = {
+      'geojson': {
+        'type': 'FeatureCollection',
+        'features': [{
+          'type': 'Feature',
+          'properties': {},
+          'geometry': geojson
+        }]
+      }
+    };
+    const content = JSON.stringify(geoStore);
+
+    const success = res => {
+      const inputData = {
+        // geostore: res.data.id,
+        // period: '2001-01-01,2017-12-31',
+        // thresh: canopyDensity
+      };
+
+      customConfig.params.forEach(param => {
+        if (param.name === 'geostore') {
+          inputData.geostore = res.data.id;
+        } else if (param.name === 'period') {
+          inputData.period = param.calculate(firesSelectIndex);
+        } else if (param.name === 'thresh') {
+          inputData.thresh = canopyDensity;
+        }
+      });
+
+      esriRequest({
+        url: customConfig.microserviceEndpoint,
+        callbackParamName: 'callback',
+        content: inputData,
+        handleAs: 'json',
+        timeout: 30000
+      }, { usePost: false}).then(customResult => {
+        console.log('customResult', customResult);
+        let cleanedData;
+        switch (customConfig.analysisType) {
+          case 'activeFires':
+            cleanedData = {
+              fireCount: customResult.data.attributes.value,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+          case 'sadAlerts':
+            cleanedData = {
+              value: customResult.data.attributes.value,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+          case 'gladAlerts':
+            cleanedData = {
+              value: customResult.data.attributes.value,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+          case 'terraIAlerts':
+            cleanedData = {
+              value: customResult.data.attributes.value,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+          case 'treeCoverLoss':
+            cleanedData = {
+              treeExtent: customResult.data.attributes.treeExtent,
+              gain: customResult.data.attributes.gain,
+              loss: customResult.data.attributes.loss,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+          case 'treeCoverGain':
+            cleanedData = {
+              treeExtent: customResult.data.attributes.treeExtent,
+              gain: customResult.data.attributes.gain,
+              loss: customResult.data.attributes.loss,
+              areaHa: customResult.data.attributes.areaHa
+            };
+            break;
+
+          default:
+            cleanedData = {
+              fireCount: customResult.data.attributes.value
+            };
+            break;
+        }
+
+        console.log('clean', cleanedData);
+        deferred.resolve(cleanedData || []);
+      }, err => {
+        console.error(err);
+        deferred.resolve([]);
+      });
+    };
+
+    const http = new XMLHttpRequest();
+    const url = 'https://production-api.globalforestwatch.org/geostore';
+    const params = content;
+    http.open('POST', url, true);
+
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = () => {
+      if(http.readyState === 4 && http.status === 200) {
+        success(JSON.parse(http.responseText));
+      } else if (http.readyState === 4) {
+        deferred.resolve([]);
+      }
+    };
+    http.send(params);
+
+    return deferred;
+  },
+
+  /**
   * Fetch and format fire results
   */
   getFireCount: (url, geometry) => {
@@ -386,15 +508,6 @@ export default {
     const deferred = new Deferred();
     const geographic = webmercatorUtils.webMercatorToGeographic(geometry);
     const geojson = geojsonUtil.arcgisToGeoJSON(geographic);
-    // const content = {
-    //   type: 'geojson',
-    //   geojson: JSON.stringify(geojson),
-    //   dataset: 'biomass-loss',
-    //   period: '2001-01-01,2014-12-31',
-    //   begin: '2001-01-01',
-    //   end: '2014-12-31',
-    //   thresh: canopyDensity
-    // };
 
     const geoStore = {
       'geojson': {
@@ -411,7 +524,7 @@ export default {
     const success = res => {
       const biomassData = {
         geostore: res.data.id,
-        period: '2001-01-01,2014-12-31',
+        period: '2001-01-01,2017-12-31',
         thresh: canopyDensity
       };
       esriRequest({

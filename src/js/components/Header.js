@@ -22,8 +22,10 @@ export default class Header extends Component {
 
     if (labels) {
       const text = labels[language];
-      title = text.title;
-      subtitle = text.subtitle;
+      if (text) {
+        title = text.title;
+        subtitle = text.subtitle;
+      }
     } else {
       title = '';
       subtitle = '';

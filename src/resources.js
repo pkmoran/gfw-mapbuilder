@@ -47,6 +47,182 @@ export default {
   sadAlerts: true,
   gladAlerts: true,
   terraIAlerts: true,
+
+  //- Custom Analysis Settings
+  customAnalysis: [{
+    label: 'Custom Fires Analysis Chart',
+    value: 'customFires',
+    analysisType: 'activeFires', // How we format the data that comes back from our call & how we decide what component is used to render it
+    microserviceEndpoint: 'https://production-api.globalforestwatch.org/v1/viirs-active-fires',
+    // useGeostore: true,
+    // useVega: false,
+    // route: '', // wdpa, use, admin, admin + id1, or blank
+    // id: '', // if wdpa or use or admin, the id of that area
+    params: [
+      {
+        name: 'geostore',
+        type: 'string'
+      }, {
+        name: 'period',
+        type: 'string',
+        calculate: function (firesSelectIndex) {
+          let daysAgo;
+          switch (firesSelectIndex) {
+            case 0: //'Past Week', value: 7
+              daysAgo = 7;
+              break;
+            case 1: //'Past 72 hours', value: 3
+              daysAgo = 3;
+              break;
+            case 2: //'Past 48 hours', value: 2
+              daysAgo = 2;
+              break;
+            case 3: //'Past 24 hours', value: 1
+              daysAgo = 1;
+              break;
+            default:
+              daysAgo = 1;
+          }
+          const date = new Date();
+          date.setDate(date.getDate() - daysAgo);
+
+          let month = (date.getUTCMonth() + 1).toString();
+          let day = date.getUTCDate().toString();
+          const year = date.getUTCFullYear();
+          if (month.length === 1) {
+            month = '0' + month;
+          }
+          if (day.length === 1) {
+            day = '0' + day;
+          }
+
+          const value = year + '-' + month + '-' + day + ',2017-12-31';
+          return value;
+        }
+      }, {
+        name: 'thresh',
+        type: 'number'
+      }
+    ],
+    // usePost: false,
+    totalArea: {
+      en: 'TOTAL SELECTED AREA',
+      fr: 'TOTAL SELECTED AREA',
+      es: 'TOTAL SELECTED AREA',
+      pt: 'TOTAL SELECTED AREA',
+      id: 'TOTAL SELECTED AREA',
+      zh: 'TOTAL SELECTED AREA'
+    },
+    dataLabel: {
+      en: 'ACTIVE FIRE ALERTS:',
+      fr: 'ACTIVE FIRE ALERTS:',
+      es: 'ACTIVE FIRE ALERTS:',
+      pt: 'ACTIVE FIRE ALERTS:',
+      id: 'ACTIVE FIRE ALERTS:',
+      zh: 'ACTIVE FIRE ALERTS:'
+    }
+  }, {
+    label: 'Custom Tree Cover Gain',
+    value: 'customGain',
+    analysisType: 'treeCoverGain', // How we format the data that comes back from our call & how we decide what component is used to render it
+    microserviceEndpoint: 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
+    // useGeostore: true,
+    // useVega: false,
+    // route: '', // wdpa, use, admin, admin + id1, or blank
+    // id: '', // if wdpa or use or admin, the id of that area
+    params: [
+      {
+        name: 'geostore',
+        type: 'string'
+      }, {
+        name: 'period',
+        type: 'string',
+        calculate: function () {
+          return '2001-01-01,2015-12-31';
+        }
+      }, {
+        name: 'thresh',
+        type: 'number'
+      }
+    ],
+    // usePost: false,
+    chart: {
+      totalArea: {
+        en: 'TOTAL SELECTED AREA',
+        fr: 'TOTAL SELECTED AREA',
+        es: 'TOTAL SELECTED AREA',
+        pt: 'TOTAL SELECTED AREA',
+        id: 'TOTAL SELECTED AREA',
+        zh: 'TOTAL SELECTED AREA'
+      },
+      dataLabel: {
+        en: 'TREE COVER GAIN:',
+        fr: 'TREE COVER GAIN:',
+        es: 'TREE COVER GAIN:',
+        pt: 'TREE COVER GAIN:',
+        id: 'TREE COVER GAIN:',
+        zh: 'TREE COVER GAIN:'
+      }
+    }
+  }, {
+    label: 'Custom GLAD Alerts',
+    value: 'customGlad',
+    analysisType: 'gladAlerts', // How we format the data that comes back from our call & how we decide what component is used to render it
+    microserviceEndpoint: 'https://production-api.globalforestwatch.org/v1/glad-alerts',
+    // useGeostore: true,
+    // useVega: false,
+    // route: '', // wdpa, use, admin, admin + id1, or blank
+    // id: '', // if wdpa or use or admin, the id of that area
+    params: [
+      {
+        name: 'geostore',
+        type: 'string'
+      }, {
+        name: 'period',
+        type: 'string',
+        calculate: function () {
+          const date = new Date();
+          date.setDate(date.getDate());
+
+          let month = (date.getUTCMonth() + 1).toString();
+          let day = date.getUTCDate().toString();
+          const year = date.getUTCFullYear();
+          if (month.length === 1) {
+            month = '0' + month;
+          }
+          if (day.length === 1) {
+            day = '0' + day;
+          }
+
+          const value = '2015-01-01,' + year + '-' + month + '-' + day;
+          return value;
+        }
+      }, {
+        name: 'thresh',
+        type: 'number'
+      }
+    ],
+    // usePost: false,
+    chart: {
+      totalArea: {
+        en: 'TOTAL SELECTED AREA',
+        fr: 'TOTAL SELECTED AREA',
+        es: 'TOTAL SELECTED AREA',
+        pt: 'TOTAL SELECTED AREA',
+        id: 'TOTAL SELECTED AREA',
+        zh: 'TOTAL SELECTED AREA'
+      },
+      dataLabel: {
+        en: 'GLAD ALERTS:',
+        fr: 'GLAD ALERTS:',
+        es: 'GLAD ALERTS:',
+        pt: 'GLAD ALERTS:',
+        id: 'GLAD ALERTS:',
+        zh: 'GLAD ALERTS:'
+      }
+    }
+  }],
+
   webmapMenuName: 'Land Use',
   //- Restoration Module settings
   restorationModule: false,
@@ -330,7 +506,7 @@ export default {
         order: 1,
         id: 'GLOB_MANGROVE',
         type: 'webtiled',
-        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/209485bfcb3eafb435befa0c405242ae:1467735931596/0/{level}/{col}/{row}.png',
+        url: 'http://{subDomain}.ashbu.cartocdn.com/wri-01/api/v1/map/d8127554db7acd324314b2cc3ee84e11:1467735931596/0/{level}/{col}/{row}.png',
         subDomains: [0, 1, 2, 3],
         technicalName: 'global_mangroves',
         legendLayer: 11,

@@ -81,6 +81,14 @@ export default class AnalysisTypeSelect extends Component {
           return true;
       }
     });
+
+    if (settings.customAnalysis && settings.customAnalysis.length > 0) {
+      settings.customAnalysis.forEach(customCall => {
+        customCall.group = analysisKeys.ANALYSIS_GROUP_OTHER;
+        options.push(customCall);
+      });
+    }
+
     //- Merge in the restoration options if the module is enabled and at least one options is enabled
     if (settings.restorationModule &&
       (settings.restorationSlopePotential || settings.restorationLandCover ||

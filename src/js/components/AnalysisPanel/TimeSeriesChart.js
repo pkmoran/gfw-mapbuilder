@@ -27,7 +27,7 @@ export default class TimeSeriesChart extends Component {
   }
 
   render () {
-    return ( 
+    return (
       <div>
         <div ref='chart' />
         <div id='chartError' className={`chart-error ${this.state.isEmpty ? '' : ' hidden'}`}>No data available.</div>

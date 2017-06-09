@@ -18,12 +18,23 @@ import GeometryEngine from 'esri/geometry/geometryEngine';
 * @return {promise}
 */
 export default function performAnalysis (options) {
-  const {type, geometry, canopyDensity, activeSlopeClass, settings} = options;
+  const {type, geometry, canopyDensity, activeSlopeClass, settings, firesSelectIndex} = options;
   const restorationUrl = settings && settings.restorationImageServer;
   const landCoverConfig = settings && settings.layerPanel && settings.layerPanel.GROUP_LC ?
     utils.getObject(settings.layerPanel.GROUP_LC.layers, 'id', layerKeys.LAND_COVER) : {};
   const config = analysisConfig[type];
   const promise = new Deferred();
+
+  let useCustom = false;
+
+  if (settings.customAnalysis && settings.customAnalysis.length > 0) {
+    settings.customAnalysis.forEach(customCall => {
+      if (type === customCall.value) {
+        useCustom = true;
+        analysisUtils.getCustomData(customCall, geometry, canopyDensity, firesSelectIndex).then(promise.resolve);
+      }
+    });
+  }
 
   switch (type) {
     case analysisKeys.FIRES:
@@ -84,8 +95,10 @@ export default function performAnalysis (options) {
       analysisUtils.getTerraIAlerts(config, geometry).then(promise.resolve);
     break;
     default:
-      //- This should only be the restoration analysis, since analysisType is a rasterId
-      analysisUtils.getRestoration(restorationUrl, type, geometry, settings).then(promise.resolve);
+      if (!useCustom) {
+        //- This should only be the restoration analysis, since analysisType is a rasterId
+        analysisUtils.getRestoration(restorationUrl, type, geometry, settings).then(promise.resolve);
+      }
     break;
   }
 
