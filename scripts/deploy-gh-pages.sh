@@ -66,13 +66,13 @@ fi
 # get new version number from package json
 version=$(getJsonProperty ./package.json "version")
 
-logMessage $green $version
-
 # if no version there was an issue with the package.json
 if [[ ! $version ]]; then
   logMessage $red "no version number found, check that your package.json exists in this folder. Exiting...";
   exit;
 fi
+
+logMessage $green $version
 
 # checkout the gh-pages branch
 logMessage $yellow "CHECKING OUT GH-PAGES BRANCH..."
@@ -82,7 +82,7 @@ git checkout test-pages
 # move the files we need to update
 logMessage $yellow "MOVING ASSETS..."
 
-cd webpackBuild && cp -R resources.js index.html report.html css js ../ && cd .. &&
+cd webpackBuild && cp -R resources.js index.html report.html css js ../ && cd ..
 
 # add and commit the changed files
 git add .
@@ -100,3 +100,5 @@ git push pkmoran test-pages
 logMessage $yellow "CHECKING OUT PREVIOUS BRANCH"
 
 git checkout -
+
+logMessage $green "DONE! GREAT JOB!"
